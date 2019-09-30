@@ -2,6 +2,8 @@ const Sequelize = require('sequelize')
 const sequelize = require('../routes/database')
 const Model = Sequelize.Model
 
+
+let dept = ['CSE', 'IT', 'EEE', 'ECE', 'ME']
 class Course extends Model { }
 Course.init({
     id: {
@@ -50,8 +52,29 @@ Faculty.init({
 
 Faculty.hasMany(Course, {foreignKey: Course.facultyId, sourceKey: Faculty.id, onDelete: 'cascade'})
 
-Course.sync({ force: true })
-Faculty.sync({force: false})
+let fun = (num) => {
+    return num > 4 ? num-5 : num
+}
+
+let sync = async () => {
+    await Faculty.sync({force: false})
+    // for(let i = 1; i <= 10; i++) {
+    //     Faculty.create({
+    //         id: ''+i,
+    //         name: 'fname'+i,
+    //         dept: dept[Math.floor(fun(Math.random()*10))],
+    //         email: 'fname'+i+'@mail.com',
+    //     })
+    // }
+    await Course.sync({ force: false })
+    
+}
+
+sync()
+
+
+
+
 
 module.exports = {
     Course,

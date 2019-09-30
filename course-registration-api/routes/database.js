@@ -11,8 +11,6 @@ let connection = new sequelize('course_registration', 'node', '123456', {
     }
 });
 
-
-
 connection
   .authenticate()
   .then(() => {
