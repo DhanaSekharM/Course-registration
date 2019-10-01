@@ -28,6 +28,7 @@ Course.init({
 }, {
     sequelize,
     modelName: 'course',
+    freezeTableName: true,
 });
 
 class Faculty extends Model { }
@@ -48,6 +49,43 @@ Faculty.init({
 }, {
     sequelize,
     modelName: 'faculty',
+    freezeTableName: true,
+})
+
+class Student extends Model {}
+Student.init({
+    id: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+    },
+    firstName: {
+        type: Sequelize.STRING,
+    },
+    middleName: {
+        type: Sequelize.STRING,
+    },
+    lastName: {
+        type: Sequelize.STRING,
+    },
+    dept: {
+        type: Sequelize.STRING,
+    },
+    cgpa: {
+        type: Sequelize.FLOAT,
+    },
+    semester: {
+        type: Sequelize.INTEGER,
+    },
+    email: {
+        type: Sequelize.STRING,
+    },
+    sex: {
+        type: Sequelize.STRING,
+    },
+}, {
+    sequelize,
+    modelName: 'student',
+    freezeTableName: true,
 })
 
 Faculty.hasMany(Course, {foreignKey: Course.facultyId, sourceKey: Faculty.id, onDelete: 'cascade'})
@@ -57,16 +95,17 @@ let fun = (num) => {
 }
 
 let sync = async () => {
-    await Faculty.sync({force: false})
-    // for(let i = 1; i <= 10; i++) {
-    //     Faculty.create({
-    //         id: ''+i,
-    //         name: 'fname'+i,
-    //         dept: dept[Math.floor(fun(Math.random()*10))],
-    //         email: 'fname'+i+'@mail.com',
-    //     })
-    // }
-    await Course.sync({ force: false })
+    await Faculty.sync({force: true})
+        for(let i = 1; i <= 10; i++) {
+            Faculty.create({
+                id: ''+i,
+                name: 'fname'+i,
+                dept: dept[Math.floor(fun(Math.random()*10))],
+                email: 'fname'+i+'@mail.com',
+            })
+        }
+    await Course.sync({ force: true })
+    await Student.sync({force: true})
     
 }
 
