@@ -1,4 +1,5 @@
-var {Course, Faculty} = require('../model/models')
+var {Course, Faculty, Student, sequelize} = require('../model/models')
+// const sequelize = require('sequelize')
 
 let handler;
 
@@ -24,5 +25,26 @@ exports.displayCourseForFaculty = (req, res) => {
          res.send(JSON.stringify(courses))
     })
 }
+
+exports.displayCourseForStudent = async (req, res) => {
+    let id
+    await Student.findAll({
+        where: {
+            id: req.body.id,
+        }
+    }).then((student) => {
+        console.log(student)
+        id = student[0].dataValues.id;
+        console.log(id)
+    })
+    // console.log(id)
+
+    return sequelize.query(`SELECT course.name FROM course INNER JOIN student ON student.semester = course.semester where student.id = ${id}`, {type: sequelize.QueryTypes.SELECT})
+                    .then((courses) => {
+                        res.send(JSON.stringify(courses))
+                    })
+}
+
+
 
 // module.exports(handler)

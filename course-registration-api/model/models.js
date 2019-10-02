@@ -95,17 +95,17 @@ let fun = (num) => {
 }
 
 let sync = async () => {
-    await Faculty.sync({force: true})
-        for(let i = 1; i <= 10; i++) {
-            Faculty.create({
-                id: ''+i,
-                name: 'fname'+i,
-                dept: dept[Math.floor(fun(Math.random()*10))],
-                email: 'fname'+i+'@mail.com',
-            })
-        }
-    await Course.sync({ force: true })
-    await Student.sync({force: true})
+    await Faculty.sync({force: false})
+        // for(let i = 1; i <= 10; i++) {
+        //     Faculty.create({
+        //         id: ''+i,
+        //         name: 'fname'+i,
+        //         dept: dept[Math.floor(fun(Math.random()*10))],
+        //         email: 'fname'+i+'@mail.com',
+        //     })
+        // }
+    await Course.sync({ force: false })
+    await Student.sync({force: false})
     
 }
 
@@ -118,5 +118,7 @@ sync()
 module.exports = {
     Course,
     Faculty,
+    Student,
+    sequelize,
 }
 

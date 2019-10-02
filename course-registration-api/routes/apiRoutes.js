@@ -6,3 +6,8 @@ module.exports = (app) => {
     .get(controller.displayCourseForFaculty)
     .post(controller.addCourse)
 }
+
+module.exports = (app) => {
+    app.route('/student/courses')
+    .get(controller.displayCourseForStudent)
+}
