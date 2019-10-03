@@ -11,3 +11,8 @@ module.exports = (app) => {
     app.route('/student/courses')
     .get(controller.displayCourseForStudent)
 }
+
+module.exports = (app) => {
+    app.route('/student/courses/:id')
+    .get(controller.registerCourse)
+}

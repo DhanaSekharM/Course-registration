@@ -52,7 +52,7 @@ Faculty.init({
     freezeTableName: true,
 })
 
-class Student extends Model {}
+class Student extends Model { }
 Student.init({
     id: {
         type: Sequelize.STRING,
@@ -88,25 +88,50 @@ Student.init({
     freezeTableName: true,
 })
 
-Faculty.hasMany(Course, {foreignKey: Course.facultyId, sourceKey: Faculty.id, onDelete: 'cascade'})
+class Registration extends Model { }
+Registration.init({
+    courseId: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+    },
+    studentId: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+    },
+    registration_date: {
+        type: Sequelize.STRING,
+    },
+    status: {
+        type: Sequelize.STRING,
+    }
+}, {
+    sequelize,
+    modelName: 'registration',
+    freezeTableName: true,
+})
+
+Faculty.hasMany(Course, { foreignKey: Course.facultyId, sourceKey: Faculty.id, onDelete: 'cascade' })
+Student.hasMany(Registration, { foreignKey: Registration.studentId, sourceKey: Student.id, onDelete: 'cascade' })
+Course.hasMany(Registration, { foreignKey: Registration.courseId, sourceKey: Course.id, onDelete: 'cascade' })
 
 let fun = (num) => {
-    return num > 4 ? num-5 : num
+    return num > 4 ? num - 5 : num
 }
 
 let sync = async () => {
-    await Faculty.sync({force: false})
-        // for(let i = 1; i <= 10; i++) {
-        //     Faculty.create({
-        //         id: ''+i,
-        //         name: 'fname'+i,
-        //         dept: dept[Math.floor(fun(Math.random()*10))],
-        //         email: 'fname'+i+'@mail.com',
-        //     })
-        // }
+    await Faculty.sync({ force: false })
+    // for(let i = 1; i <= 10; i++) {
+    //     Faculty.create({
+    //         id: ''+i,
+    //         name: 'fname'+i,
+    //         dept: dept[Math.floor(fun(Math.random()*10))],
+    //         email: 'fname'+i+'@mail.com',
+    //     })
+    // }
     await Course.sync({ force: false })
-    await Student.sync({force: false})
-    
+    await Student.sync({ force: false })
+    await Registration.sync({ force: true })
+
 }
 
 sync()
