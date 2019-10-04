@@ -1,18 +1,24 @@
 const controller = require('./../controller/course-controller')
 
+// module.exports = (app) => {
+//     app.route('/')
+// }
 
 module.exports = (app) => {
     app.route('/courses')
-    .get(controller.displayCourseForFaculty)
-    .post(controller.addCourse)
-}
+        .get(controller.displayCourseForFaculty)
+        .post(controller.addCourse)
 
-module.exports = (app) => {
     app.route('/student/courses')
-    .get(controller.displayCourseForStudent)
+        .get(controller.displayCourseForStudent)
+
+
+    app.route('/student/courses/:id')
+        .post(controller.registerCourse)
+
+
+
 }
 
-module.exports = (app) => {
-    app.route('/student/courses/:id')
-    .get(controller.registerCourse)
-}
+
+
