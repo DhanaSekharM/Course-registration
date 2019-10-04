@@ -19,6 +19,7 @@ exports.addCourse = (req, res) => {
 
 exports.displayCourseForFaculty = (req, res) => {
     console.log('2')
+    console.log(req.user)
     return Course.findAll({
         where: {
             facultyId: req.body.id,
