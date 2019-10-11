@@ -19,10 +19,14 @@ module.exports = (app) => {
 
 
     app.route('/login')
-        .post(passport.authenticate('local'),
-            (req, res) => {
-                res.send({ status: 'done' })
-            })
+        .post(passport.authenticate('local'), 
+        (req, res) => {
+            res.send({status: 'success'})
+        })
+    app.route('/error')
+        .get((req, res) => {
+            res.send({'status': 'error'})
+        })
 
 }
 
