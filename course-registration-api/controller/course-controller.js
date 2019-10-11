@@ -5,23 +5,28 @@ let handler;
 
 exports.addCourse = (req, res) => {
     console.log('1')
+    console.log(req.user)
     return Course.create({
         id: req.body.id,
         name: req.body.name,
         timeslot: req.body.timeslot,
         type: req.body.type,
         semester: req.body.semester,
-        facultyId: req.body.facultyId,
+        facultyId: req.user,
     }).then((course) => {
         res.send(course)
+    })
+    .catch(error => {
+        res.send(error)
     })
 }
 
 exports.displayCourseForFaculty = (req, res) => {
     console.log('2')
+    console.log(req.user)
     return Course.findAll({
         where: {
-            facultyId: req.body.id,
+            facultyId: req.user,
         }
     }).then((courses) => {
          res.send(JSON.stringify(courses))
@@ -30,19 +35,8 @@ exports.displayCourseForFaculty = (req, res) => {
 
 exports.displayCourseForStudent = async (req, res) => {
     console.log('3')
-    let id
-    await Student.findAll({
-        where: {
-            id: req.body.id,
-        }
-    }).then((student) => {
-        console.log(student)
-        id = student[0].dataValues.id;
-        console.log(id)
-    })
-    // console.log(id)
-
-    return sequelize.query(`SELECT course.* FROM course INNER JOIN student ON student.semester = course.semester where student.id = ${id}`, {type: sequelize.QueryTypes.SELECT})
+    console.log(req.user)
+    return sequelize.query(`SELECT course.* FROM course INNER JOIN student ON student.semester = course.semester where student.id = ${req.user}`, {type: sequelize.QueryTypes.SELECT})
                     .then((courses) => {
                         res.send(JSON.stringify(courses))
                     })
@@ -51,23 +45,16 @@ exports.displayCourseForStudent = async (req, res) => {
 exports.registerCourse = async (req, res) => {
     console.log('4')
     let id
-    // await Student.findAll({
-    //     where: {
-    //         id: req.body.id,
-    //     }
-    // }).then((student) => {
-    //     console.log(student)
-    //     id = student[0].dataValues.id;
-    //     console.log(id)
-    // })
-
     let courseId
-    courseId = req.params.id
+    courseId = String(req.params.id)
     console.log(courseId)
 
-    return sequelize.query(`INSERT INTO registration VALUES(${courseId}, ${req.body.student_id}, ${req.body.creation_time}, "pending")`)
+    return sequelize.query(`INSERT INTO registration VALUES('${courseId}', '${req.user}', '${req.body.creation_time}', 'pending')`)
             .then((reg) => {
                 res.send(JSON.stringify(reg))
+            })
+            .catch((err) => {
+                res.send(err)
             })
 }
 
