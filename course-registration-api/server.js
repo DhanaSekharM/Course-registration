@@ -7,8 +7,9 @@ const sequelize = require('./routes/database')
 const routes = require('./routes/apiRoutes')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const port = 3000;
+const port = 3001;
 const session = require('express-session')
+const cors = require('cors')
 
 app.listen(port)
 
@@ -20,6 +21,7 @@ app.use(session({ secret: "cats" }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(cors())
 
 passport.use(new LocalStrategy(
     async (username, password, done) => {
@@ -56,17 +58,21 @@ passport.use(new LocalStrategy(
 ))
 
 passport.serializeUser((user, done) => {
+    console.log('Serializing..')
     console.log(user)
     let id
     id = user.studentId;
     if (!id) { id = user.facultyId }
     console.log(id)
+    console.log('End')
     done(null, id)
 
 })
 
 passport.deserializeUser(function (username, done) {
-    console.log(username + 'd')
+    console.log('Deserializing..')
+    console.log(username)
+    console.log('end')
     done(null, username)
 });
 
