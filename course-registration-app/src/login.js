@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import './css/login.css'
+import loginStyles from './css/login.module.css'
 
 class LoginFields extends React.Component {
     constructor(props) {
@@ -39,11 +39,11 @@ class LoginFields extends React.Component {
     render() {
         return(
             <div align='center'>
-                <input className='loginInput' placeholder='Username' type='text' value = {this.state.username} onChange={(event) => this.handleChange(event, "username")}/>
+                <input className={loginStyles.input} placeholder='Username' type='text' value = {this.state.username} onChange={(event) => this.handleChange(event, "username")}/>
                 <br/>
-                <input className='loginInput' placeholder='Password' type='password' value={this.state.password} onChange={(event) => this.handleChange(event, "password")} />
+                <input className={loginStyles.input} placeholder='Password' type='password' value={this.state.password} onChange={(event) => this.handleChange(event, "password")} />
                 <br/>
-                <button className='loginInput' type='button' onClick={this.handleSubmit}>Log In</button>
+                <button className={loginStyles.button} type='button' onClick={this.handleSubmit}>Log In</button>
             </div>
         )
     }
@@ -54,8 +54,8 @@ class LoginFields extends React.Component {
 class Title extends React.Component {
     render() {
         return (
-            <div className='loginTitle' align='center'>
-                <h1><b>Login</b></h1>
+            <div align='center'>
+                <h1 className={loginStyles.loginTitle}><b>Login</b></h1>
                 <p>Welcome! Login for Course Registration</p>
             </div>
         )
@@ -65,10 +65,10 @@ class Title extends React.Component {
 class LoginPage extends React.Component {
     render() {
         return (
-            <div>
+            <body className={loginStyles.loginBody}>
                 <Title />
                 <LoginFields value={this.props}/>
-            </div>
+            </body>
         )
 
     }
