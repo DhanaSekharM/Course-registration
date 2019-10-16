@@ -41,7 +41,7 @@ class LoginFields extends React.Component {
             <div align='center'>
                 <input className='loginInput' placeholder='Username' type='text' value = {this.state.username} onChange={(event) => this.handleChange(event, "username")}/>
                 <br/>
-                <input className='loginInput' placeholder='Password' type='text' value={this.state.password} onChange={(event) => this.handleChange(event, "password")} />
+                <input className='loginInput' placeholder='Password' type='password' value={this.state.password} onChange={(event) => this.handleChange(event, "password")} />
                 <br/>
                 <button className='loginInput' type='button' onClick={this.handleSubmit}>Log In</button>
             </div>
@@ -55,7 +55,7 @@ class Title extends React.Component {
     render() {
         return (
             <div className='loginTitle' align='center'>
-                <h1>Login</h1>
+                <h1><b>Login</b></h1>
                 <p>Welcome! Login for Course Registration</p>
             </div>
         )
