@@ -1,16 +1,25 @@
 import React from 'react'
 import axios from 'axios'
-import loginStyles from './css/login.module.css'
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import styles from './css/login.module.css'
 
-class LoginFields extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             username: '',
             password: '',
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(event, type) {
@@ -30,48 +39,63 @@ class LoginFields extends React.Component {
         })
             .then((response) => {
                 console.log(response);
-                this.props.value.history.push('/student/courses')
+                this.props.history.push('/home')
             })
     }
 
-
-
-    render() {
-        return(
-            <div align='center'>
-                <input className={loginStyles.input} placeholder='Username' type='text' value = {this.state.username} onChange={(event) => this.handleChange(event, "username")}/>
-                <br/>
-                <input className={loginStyles.input} placeholder='Password' type='password' value={this.state.password} onChange={(event) => this.handleChange(event, "password")} />
-                <br/>
-                <button className={loginStyles.button} type='button' onClick={this.handleSubmit}>Log In</button>
-            </div>
-        )
-    }
-
-}
-
-
-class Title extends React.Component {
     render() {
         return (
-            <div align='center'>
-                <h1 className={loginStyles.loginTitle}><b>Login</b></h1>
-                <p>Welcome! Login for Course Registration</p>
-            </div>
-        )
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={styles.paper}>
+                    <Avatar className={styles.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+            </Typography>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Login Id"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        value={this.state.username}
+                        onChange={(event) => { this.handleChange(event, 'username') }}
+
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        value={this.state.password}
+                        onChange={(event) => { this.handleChange(event, 'password') }}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={styles.submit}
+                        onClick={this.handleSubmit}
+                    >
+                        Sign In
+              </Button>
+                </div>
+            </Container>
+        );
     }
+
 }
 
-class LoginPage extends React.Component {
-    render() {
-        return (
-            <body className={loginStyles.loginBody}>
-                <Title />
-                <LoginFields value={this.props}/>
-            </body>
-        )
-
-    }
-}
-
-export default LoginPage;
+export default LoginPage
