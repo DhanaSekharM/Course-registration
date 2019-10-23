@@ -1,5 +1,8 @@
 import React from 'react'
 import axios from 'axios'
+import CourseCard from './course-card'
+import {Header, Navigator} from './../common'
+import styles from './../css/course.module.css'
 
 class Get extends React.Component {
 
@@ -22,7 +25,7 @@ class Get extends React.Component {
 
     render() {
         // let response
-
+        document.body.style.backgroundColor = 'whitesmoke'
         let response = this.makeRequest()
         console.log(response)
         response.then((res) => {
@@ -32,7 +35,16 @@ class Get extends React.Component {
 
 
         return (
-            <h1>Courses Available</h1>
+            <div className={styles.body}>
+                <Header value='Available Courses'/>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <Navigator/>
+                    
+                    <CourseCard/>
+                </div>
+                
+                
+            </div>
         )
     }
 

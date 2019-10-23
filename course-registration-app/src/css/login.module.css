@@ -1,6 +1,7 @@
 
 body {
     --primaryColor: #3f51b5;
+    --gray: #c0c0c0;
 }
 .paper {
     margin-top: 100px;

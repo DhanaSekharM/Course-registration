@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import AccountIcon from '@material-ui/icons/AccountBox'
 import CourseIcon from '@material-ui/icons/LibraryBooks'
 import { IconButton, Button } from '@material-ui/core'
@@ -6,11 +7,18 @@ import MenuCard from './../home-page/menu-card'
 import LongCard from './../home-page/long-card'
 import { style } from '@material-ui/system'
 import styles from './../css/home.module.css'
+import { Header, Navigator } from './../common'
 class HomePage extends React.Component {
 
     constructor(props) {
         super(props)
         console.log(props)
+        this.state = {
+            availableCourses: [],
+            pendingCourses: [],
+            approvedCourses: [],
+            requested: false,
+        }
         this.handleClick = this.handleClick.bind(this)
     }
 
@@ -24,49 +32,97 @@ class HomePage extends React.Component {
         }
     }
 
+    async makeRequest() {
+        return await axios.get('/student/courses', {
+            withCredentials: true
+        })
+    }
+
+    updateState(courses) {
+        let availableCourses = []
+        let pendingCourses = []
+        let approvedCourses = []
+        console.log(courses.data[0])
+        for (let i = 0; i < courses.length; i++) {
+            availableCourses.push(courses.data[i])
+            if (courses[i].status == 'pending') {
+                pendingCourses.push(courses[i])
+            } else {
+                approvedCourses.push(courses[i])
+            }
+        }
+        this.setState({
+            availableCourses: courses.data.slice(),
+            pendingCourses: pendingCourses.slice(),
+            approvedCourses: approvedCourses.slice(),
+            requested: true
+        })
+        
+    }
+
     render() {
         document.body.style.backgroundColor = "whitesmoke";
+
+        if (!this.state.requested) {
+            let response = this.makeRequest()
+            console.log(response)
+            response.then((res) => {
+                // console.log(response)
+                console.log((res))
+                this.updateState(res)
+            })
+        }
+
         var pendingCourses = {
             color: 'red',
-            courses: ['CO123', 'CO234', 'CO456']
+            courses: this.state.pendingCourses.slice()
         }
 
         var availableCourses = {
             color: 'orange',
-            courses: ['CO123', 'CO234', 'CO456', 'CO123', 'CO123', 'CO123', 'CO123','CO123']
+            courses: this.state.availableCourses.slice()
         }
 
         var approvedCourses = {
             color: 'green',
-            courses: ['CO123', 'CO234', 'CO456']
+            courses: this.state.approvedCourses.slice()
         }
 
-        return (
-            <div className={styles.home}>
-                <div className={styles.header}>
-                    <h1 className={styles.box}>OCR</h1>
+        if (this.state.requested) {
+            console.log(availableCourses)
+            return (
+                <div className={styles.home}>
+                    <Header value='Dashboard' />
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <Navigator />
+                        <div style={{ marginLeft: '5%', marginTop: '3%' }}>
+                            <MenuCard />
+                        </div>
+                        <div style={{ marginTop: '3%', marginLeft: '3%' }} onClick={() => this.handleClick('available')}>
+                            <LongCard value={availableCourses} />
+                        </div>
+                        <div style={{ marginTop: '3%', marginLeft: '3%' }} onClick={() => this.handleClick('pending')}>
+                            <LongCard value={pendingCourses} />
+                        </div>
+                        <div style={{ marginTop: '3%', marginLeft: '3%' }} onClick={() => this.handleClick('approved')}>
+                            <LongCard value={approvedCourses} />
+                        </div>
+                    </div>
+
+
                 </div>
 
-                <div style={{display: 'flex', flexDirection: 'row'}}>
-                    <div style={{ marginLeft: '15%', marginTop: '10%' }}>
-                        <MenuCard />
-                    </div>
-                    <div style={{ marginTop: '10%', marginLeft: '3%' }} onClick={() => this.handleClick('available')}>
-                        <LongCard value={availableCourses} />
-                    </div>
-                    <div style={{ marginTop: '10%', marginLeft: '3%' }} onClick={() => this.handleClick('pending')}>
-                        <LongCard value={pendingCourses} />
-                    </div>
-                    <div style={{ marginTop: '10%', marginLeft: '3%' }} onClick={() => this.handleClick('approved')}>
-                        <LongCard value={approvedCourses} />
-                    </div>
+
+            )
+        } else {
+            return (
+                <div>
+                    <h1>Loading..</h1>
                 </div>
+            )
 
+        }
 
-            </div>
-
-
-        )
 
     }
 }

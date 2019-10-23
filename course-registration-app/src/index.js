@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import {Route, Link, BrowserRouter as Router} from 'react-router-dom'
 import LoginForm from './login'
 import HomePage from './home-page/home'
-import Get from './courses-available'
+import Get from './courses/courses-available'
 
 
 const routing = (
