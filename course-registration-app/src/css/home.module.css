@@ -99,4 +99,5 @@
 }
 .li:hover {
     background-color: var(--gray);
+    cursor: pointer;
 }

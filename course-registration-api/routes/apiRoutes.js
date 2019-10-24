@@ -15,7 +15,7 @@ module.exports = (app) => {
 
 
     app.route('/student/courses/:id')
-        .get(controller.registerCourse)
+        .post(controller.registerCourse)
 
 
     app.route('/login')
@@ -27,6 +27,8 @@ module.exports = (app) => {
         .get((req, res) => {
             res.send({'status': 'error'})
         })
+    app.route('/student/reg-courses')
+        .get(controller.viewRegisteredCourses)
 
 }
 
