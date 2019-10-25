@@ -24,7 +24,8 @@ class HomePage extends React.Component {
 
     handleClick(page) {
         switch (page) {
-            case 'profile':
+            case 'pending':
+                this.props.history.push('/student/pending-courses')
                 break
             case 'available':
                 this.props.history.push('/student/courses')
@@ -92,9 +93,9 @@ class HomePage extends React.Component {
             console.log(availableCourses)
             return (
                 <div className={styles.home}>
-                    <Header value='Dashboard' />
+                    <Header title='Dashboard' value={this.props} />
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Navigator />
+                        <Navigator value={this.props}/>
                         <div style={{ marginLeft: '5%', marginTop: '3%' }}>
                             <MenuCard />
                         </div>

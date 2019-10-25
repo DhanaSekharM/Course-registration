@@ -41,10 +41,12 @@
 
 .longCard:hover {
     box-shadow: 0 12px 20px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 .smallCard:hover {
     box-shadow: 0 12px 20px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 .home {
@@ -80,6 +82,10 @@
     background-color: var(--primaryColor);
     border-radius: 2mm;
     color: whitesmoke;
+}
+
+.box:hover {
+    cursor: pointer;
 }
 
 .navList {

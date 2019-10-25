@@ -16,7 +16,7 @@ module.exports = (app) => {
 
     app.route('/student/courses/:id')
         .post(controller.registerCourse)
-
+        .delete(controller.deleteCourse)
 
     app.route('/login')
         .post(passport.authenticate('local'), 
@@ -29,6 +29,10 @@ module.exports = (app) => {
         })
     app.route('/student/reg-courses')
         .get(controller.viewRegisteredCourses)
+
+    app.route('/student/pending-courses')
+        .get(controller.viewPendingCourses)
+        
 
 }
 

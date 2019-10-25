@@ -6,6 +6,7 @@ import {Route, Link, BrowserRouter as Router} from 'react-router-dom'
 import LoginForm from './login'
 import HomePage from './home-page/home'
 import Get from './courses/courses-available'
+import PendingCourses from './courses/pending-courses'
 
 
 const routing = (
@@ -14,6 +15,7 @@ const routing = (
             <Route path = '/login' component = {LoginForm}/>
             <Route path = '/home' component = {HomePage}/>
             <Route exact path = '/student/courses' component = {Get}/>
+            <Route path = '/student/pending-courses' component = {PendingCourses}/>
         </div>
     </Router>
 )

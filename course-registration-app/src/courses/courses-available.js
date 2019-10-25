@@ -8,11 +8,21 @@ import styles from './../css/course.module.css'
 function twoCards(course1, course2, clickHandler) {
     return (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <div style={{width:'400px' ,margin:'40px 40px 40px 100px'}}>
-                <CourseCard value={course1} onApplyClick={() => clickHandler('apply', course1.id)} onViewClick={() => clickHandler('view')} />
+            <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
+                <CourseCard
+                    value={course1} onApplyClick={() => clickHandler('apply', course1.id)}
+                    onViewClick={() => clickHandler('view')}
+                    button1='Apply'
+                    button2='View'
+                />
             </div>
-            <div style={{width:'400px', margin:'40px 40px 40px 100px'}}>
-                <CourseCard value={course2} onApplyClick={() => clickHandler('apply', course2.id)} onViewClick={() => clickHandler('view')} />
+            <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
+                <CourseCard
+                    value={course2}
+                    onApplyClick={() => clickHandler('apply', course2.id)} onViewClick={() => clickHandler('view')}
+                    button1='Apply'
+                    button2='View'
+                />
             </div>
 
         </div>
@@ -59,8 +69,8 @@ class Get extends React.Component {
     }
 
     clickHandler(type, courseId) {
-        if(type == 'apply') {
-            axios.post('/student/courses/'+courseId)
+        if (type == 'apply') {
+            axios.post('/student/courses/' + courseId)
                 .then((res) => {
                     window.location.reload()
                 })
@@ -84,10 +94,10 @@ class Get extends React.Component {
 
         let courses = this.state.availableCourses.slice()
 
-        for(let i = 0; i < courses.length; i++) {
+        for (let i = 0; i < courses.length; i++) {
             courses[i]['applied'] = false
-            for(let j = 0; j < this.state.registeredCourses.length; j++) {
-                if(courses[i].id == this.state.registeredCourses[j].courseId) {
+            for (let j = 0; j < this.state.registeredCourses.length; j++) {
+                if (courses[i].id == this.state.registeredCourses[j].courseId) {
                     courses[i].applied = true
                 }
             }
@@ -97,7 +107,6 @@ class Get extends React.Component {
         for (let i = this.state.availableCourses.length - 1; i >= 0; i = i - 2) {
             if (i == 0) {
                 cards.push(oneCard(courses[i]))
-                cards.push(oneCard(courses[i - 1]))
             } else {
                 cards.push(twoCards(courses[i], courses[i - 1], this.clickHandler))
             }
@@ -107,9 +116,9 @@ class Get extends React.Component {
         if (this.state.requested) {
             return (
                 <div className={styles.body}>
-                    <Header value='Available Courses' />
+                    <Header title='Available Courses' value={this.props} />
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Navigator />
+                        <Navigator value={this.props}/>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             {cards.map((card) => { return card })}
                         </div>
