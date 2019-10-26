@@ -32,7 +32,7 @@ class Navigator extends React.Component {
                 this.props.value.history.push('/student/pending-courses')
                 break
             case 'approved':
-                alert('yeet')
+                this.props.value.history.push('/student/approved-courses')
                 break
             case 'graded':
                 alert('yeet')

@@ -5,6 +5,8 @@ class CourseCard extends React.Component {
     render() {
         let button2Color
 
+        // if()
+
         if (this.props.button1.localeCompare('Delete') == 0) {
             console.log('here')
             button2Color = 'red'
@@ -39,6 +41,7 @@ class CourseCard extends React.Component {
                     </button>
                     <button
                         disabled={this.props.value.applied}
+                        hidden={this.props.approved=='true'?true:false}
                         className={styles.button}
                         style={{ backgroundColor: button2Color }}
                         onClick={this.props.onApplyClick}

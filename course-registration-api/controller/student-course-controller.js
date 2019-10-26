@@ -97,5 +97,18 @@ exports.deleteCourse= (req, res) => {
             })
 }
 
+exports.viewApprovedCourses = (req, res) => {
+    console.log('7')
+    
+    return sequelize.
+            query(`SELECT course.*, faculty.name AS fname FROM registration INNER JOIN course INNER JOIN faculty ON registration.courseId = course.id
+             AND faculty.id = course.facultyId WHERE studentId='${req.user}' AND status='approved';`, { type: sequelize.QueryTypes.SELECT })
+             .then((approvedCourses) => {
+                 res.send(JSON.stringify(approvedCourses))
+             })
+             .catch((err) => {
+                 res.send(err)
+             })
+}
 
 // module.exports(handler)

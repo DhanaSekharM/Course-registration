@@ -30,32 +30,29 @@ class HomePage extends React.Component {
             case 'available':
                 this.props.history.push('/student/courses')
                 break
+            case 'approved':
+                this.props.history.push('/student/approved-courses')
         }
     }
 
     async makeRequest() {
-        return await axios.get('/student/courses', {
-            withCredentials: true
-        })
+        let availableCourses = await axios.get('/student/courses')
+        let pendingCourses = await axios.get('/student/pending-courses')
+        let approvedCourses = await axios.get('/student/approved-courses')
+
+        return {
+            availableCourses: availableCourses.data,
+            pendingCourses: pendingCourses.data,
+            approvedCourses: approvedCourses.data,
+        }
     }
 
     updateState(courses) {
-        let availableCourses = []
-        let pendingCourses = []
-        let approvedCourses = []
-        console.log(courses.data[0])
-        for (let i = 0; i < courses.length; i++) {
-            availableCourses.push(courses.data[i])
-            if (courses[i].status == 'pending') {
-                pendingCourses.push(courses[i])
-            } else {
-                approvedCourses.push(courses[i])
-            }
-        }
+        // console.log(courses.data[0])
         this.setState({
-            availableCourses: courses.data.slice(),
-            pendingCourses: pendingCourses.slice(),
-            approvedCourses: approvedCourses.slice(),
+            availableCourses: courses.availableCourses,
+            pendingCourses: courses.pendingCourses,
+            approvedCourses: courses.approvedCourses,
             requested: true
         })
         

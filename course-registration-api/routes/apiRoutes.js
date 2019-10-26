@@ -1,4 +1,5 @@
-const controller = require('./../controller/course-controller')
+const controller = require('../controller/student-course-controller')
+const facultyController = require('../controller/faculty-course-controller')
 const passport = require('passport')
 
 // module.exports = (app) => {
@@ -32,6 +33,12 @@ module.exports = (app) => {
 
     app.route('/student/pending-courses')
         .get(controller.viewPendingCourses)
+
+    app.route('/student/approved-courses')
+        .get(controller.viewApprovedCourses)
+
+    app.route('/faculty/approve-course')
+        .post(facultyController.approveCourse)
         
 
 }

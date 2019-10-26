@@ -53,6 +53,7 @@ class Get extends React.Component {
             withCredentials: true
         })
         let registeredCourses = await axios.get('/student/reg-courses')
+        
         console.log(registeredCourses)
         return {
             availableCourses: availableCourses,
