@@ -32,6 +32,8 @@ class HomePage extends React.Component {
                 break
             case 'approved':
                 this.props.history.push('/student/approved-courses')
+            case 'timetable':
+                this.props.history.push('/student/timetable')
         }
     }
 
@@ -93,7 +95,7 @@ class HomePage extends React.Component {
                     <Header title='Dashboard' value={this.props} />
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <Navigator value={this.props}/>
-                        <div style={{ marginLeft: '5%', marginTop: '3%' }}>
+                        <div style={{ marginLeft: '5%', marginTop: '3%' }} onClick={() => this.handleClick('timetable')}>
                             <MenuCard />
                         </div>
                         <div style={{ marginTop: '3%', marginLeft: '3%' }} onClick={() => this.handleClick('available')}>
