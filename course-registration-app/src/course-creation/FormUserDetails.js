@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { RadioButton } from 'material-ui';
 
 export class FormUserDetails extends Component {
     continue = e => {
@@ -18,31 +19,47 @@ export class FormUserDetails extends Component {
             <MuiThemeProvider>
                 <React.Fragment>
                     <AppBar title="Enter user details"/>
-                    <TextField
-                        hintText="Enter your first name"
-                        floatingLabelText="First Name"
-                        onChange={handleChange('firstName')}
-                        defaultValue={values.firstName}
-                    />
-                    <br/>
-                    <TextField
-                        hintText="Enter your last name"
-                        floatingLabelText="Last Name"
-                        onChange={handleChange('lastName')}
-                        defaultValue={values.firstName}
-                    />
-                    <br/>
-                    <TextField
-                        hintText="Enter your email"
-                        floatingLabelText="email"
-                        onChange={handleChange('email')}
-                        defaultValue={values.email}
-                    />
-                    <br/>
+                    <div id="details" style={{
+                        marginTop: 100,
+                        marginLeft: 1000
+                    }}>
+                        <TextField
+                            hintText="Course ID"
+                            floatingLabelText="Course ID"
+                            onChange={handleChange('courseId')}
+                            defaultValue={values.courseId}
+                        />
+                        <br/>
+
+                        <TextField
+                            hintText="Course name"
+                            floatingLabelText="Course name"
+                            onChange={handleChange('coureName')}
+                            defaultValue={values.courseName}
+                        />
+                        <br/>
+                        <TextField
+                            hintText="Semester"
+                            floatingLabelText="Semester"
+                            onChange={handleChange('semester')}
+                            defaultValue={values.semester}
+                        />
+                        <br/>
+                        <TextField
+                            hintText="Prerequisites"
+                            floatingLabelText="Prerequisites"
+                            onChange={handleChange('prerequisites')}
+                            defaultValue={values.prerequisites}
+                        />
+                        <br/>
+                    </div>
                     <RaisedButton
                         label="Continue"
                         primary={true}
-                        style={styles.button}
+                        style={ {
+                            marginLeft:800,
+                            marginTop:50,
+                        }}
                         onClick={this.continue}
                     />
                 </React.Fragment>

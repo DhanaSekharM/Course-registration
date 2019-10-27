@@ -7,10 +7,10 @@ import FormUserDetails from './FormUserDetails';
 export class UserForm extends Component {
   state = {
     step: 1,
-    firstName: '',
-    lastName: '',
-    email: '',
-    occupation: '',
+    courseId: '',
+    courseName: '',
+    semester: '',
+    prerequisites: '',
     city: '',
     bio: ''
   };
