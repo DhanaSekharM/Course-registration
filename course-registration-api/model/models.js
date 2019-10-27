@@ -139,11 +139,30 @@ FacultyLogin.init({
     modelName: 'facultyLogin',
     freezeTableName: true,
 })
+
+class Timeslot extends Model {}
+
+Timeslot.init({
+    courseId: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+    },
+    slot: {
+        type: Sequelize.TIME,
+        primaryKey: true
+    }
+}, {
+    sequelize,
+    modelName: 'timeslot',
+    freezeTableName: true,
+})
+
 Faculty.hasMany(Course, { foreignKey: Course.facultyId, sourceKey: Faculty.id, onDelete: 'cascade' })
 Student.hasMany(Registration, { foreignKey: Registration.studentId, sourceKey: Student.id, onDelete: 'cascade' })
 Course.hasMany(Registration, { foreignKey: Registration.courseId, sourceKey: Course.id, onDelete: 'cascade' })
 Student.hasOne(StudentLogin, {foreignKey: StudentLogin.studentId, sourceKey: Student.id, onDelete: 'cascade'})
 Faculty.hasOne(FacultyLogin, {foreignKey: FacultyLogin.facultyId, sourceKey: Faculty.id, onDelete: 'cascade'})
+Course.hasMany(Timeslot, {foreignKey: Timeslot.courseId, sourceKey: Course.id, onDelete: 'cascade'})
 
 
 
@@ -166,6 +185,7 @@ let sync = async () => {
     await Registration.sync({ force: false })
     await StudentLogin.sync({force: false})
     await FacultyLogin.sync({force: false})
+    await Timeslot.sync({force: false})
 
     // for(let i = 1; i <= 10; i++) {
     //     FacultyLogin.create({

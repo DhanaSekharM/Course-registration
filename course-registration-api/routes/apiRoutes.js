@@ -7,9 +7,6 @@ const passport = require('passport')
 // }
 
 module.exports = (app) => {
-    app.route('/courses')
-        .get(controller.displayCourseForFaculty)
-        .post(controller.addCourse)
 
     app.route('/student/courses')
         .get(controller.displayCourseForStudent)
@@ -20,13 +17,13 @@ module.exports = (app) => {
         .delete(controller.deleteCourse)
 
     app.route('/login')
-        .post(passport.authenticate('local'), 
-        (req, res) => {
-            res.send({status: 'success'})
-        })
+        .post(passport.authenticate('local'),
+            (req, res) => {
+                res.send({ status: 'success' })
+            })
     app.route('/error')
         .get((req, res) => {
-            res.send({'status': 'error'})
+            res.send({ 'status': 'error' })
         })
     app.route('/student/reg-courses')
         .get(controller.viewRegisteredCourses)
@@ -39,7 +36,19 @@ module.exports = (app) => {
 
     app.route('/faculty/approve-course')
         .post(facultyController.approveCourse)
-        
+
+    app.route('/faculty/drop-course')
+        .delete(facultyController.dropCourse)
+
+    app.route('/faculty/timeslot')
+        .post(facultyController.addTimeslot)
+
+    app.route('/faculty/courses')
+        .get(facultyController.displayCourse)
+        .post(facultyController.addCourse)
+
+
+
 
 }
 

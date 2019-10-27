@@ -3,36 +3,6 @@ var { Course, Faculty, Student, sequelize } = require('../model/models')
 
 let handler;
 
-exports.addCourse = (req, res) => {
-    console.log('1')
-    console.log(req.user)
-    return Course.create({
-        id: req.body.id,
-        name: req.body.name,
-        timeslot: req.body.timeslot,
-        type: req.body.type,
-        semester: req.body.semester,
-        facultyId: req.user,
-    }).then((course) => {
-        res.send(course)
-    })
-        .catch(error => {
-            res.send(error)
-        })
-}
-
-exports.displayCourseForFaculty = (req, res) => {
-    console.log('2')
-    console.log(req.user)
-    return Course.findAll({
-        where: {
-            facultyId: req.user,
-        }
-    }).then((courses) => {
-        res.send(JSON.stringify(courses))
-    })
-}
-
 exports.displayCourseForStudent = async (req, res) => {
     console.log('3')
     console.log(req.user)
