@@ -34,6 +34,10 @@ module.exports = (app) => {
     app.route('/student/approved-courses')
         .get(controller.viewApprovedCourses)
 
+    app.route('/student/profile')
+        .get(controller.displayProfile)
+        .post(controller.updateProfile)
+
     app.route('/faculty/approve-course')
         .post(facultyController.approveCourse)
 
@@ -46,6 +50,10 @@ module.exports = (app) => {
     app.route('/faculty/courses')
         .get(facultyController.displayCourse)
         .post(facultyController.addCourse)
+
+    app.route('/faculty/profile')
+        .get(facultyController.displayProfile)
+        .post(facultyController.updateProfile)
 
 
 

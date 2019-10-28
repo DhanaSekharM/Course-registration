@@ -10,6 +10,8 @@ import PendingCourses from './courses/pending-courses'
 import ApprovedCourses from './courses/approved-courses'
 import TimeTableApp from './timetable/timetable'
 import CourseCreation from './course-creation/UserForm'
+import FacultyProfile from './profile/faculty-profile'
+import StudentProfile from './profile/student-profile'
 
 const routing = (
     <Router>
@@ -21,6 +23,8 @@ const routing = (
             <Route path = '/student/approved-courses' component = {ApprovedCourses}/>
             <Route path = '/student/timetable' component = {TimeTableApp}/>
             <Route path = '/faculty/course-creation' component = {CourseCreation}/>
+            <Route path = '/faculty/profile' component = {FacultyProfile}/>
+            <Route path = '/student/profile' component = {StudentProfile}/>
         </div>
     </Router>
 )

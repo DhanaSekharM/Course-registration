@@ -1,5 +1,40 @@
 var { Course, Faculty, Student, sequelize } = require('../model/models')
 
+
+exports.displayProfile = (req, res) => {
+    console.log('fac details requested')
+
+    return sequelize.query(`SELECT * FROM faculty WHERE id='${req.user}'`, { type: sequelize.QueryTypes.SELECT })
+            .then((out) => {
+                res.send(JSON.stringify(out))
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+}
+
+exports.updateProfile = (req, res) => {
+    let body = req.body
+    return sequelize.query(`UPDATE faculty SET 
+                            name = '${body.firstName}',
+                            email = '${body.email}'
+                            WHERE id = '${req.user}'`)
+                        .then((out) => {
+                            sequelize.query(`UPDATE facultyLogin SET 
+                                        password='${body.password}'
+                                        WHERE facultyId='${req.user}'`)
+                                        .then((out1) => {
+                                            res.send(JSON.stringify(out1))
+                                        })
+                                        .catch((err) => {
+                                            res.send(JSON.stringify(err))
+                                        })
+                        })
+                        .catch((err) => {
+                            res.send(JSON.stringify(err))
+                        })
+}
+
 exports.addCourse = (req, res) => {
     console.log('f1')
     console.log(req.user)

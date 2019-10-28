@@ -1,0 +1,72 @@
+.container {
+    border-radius: 1mm;
+    background-color: white;
+    margin-left: 100px;
+    width: 90%;
+}
+
+.formHeading {
+    margin-left: 30px;
+    margin-top: 150px;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.profileInput {
+    padding: 10px 10px;
+    border-style: solid;
+}
+
+.profileInput:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+hr {
+    height: .1px;
+    color: #eee;
+    background-color: #eee
+}
+
+.profileHeading {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+.fieldLabel {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.profileName {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    font-size: 36px;
+}
+
+.profileLabel {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 320;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.button {
+    background-color: green; 
+    border: none;
+    color: white;
+    padding: 10px 26px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 8mm;
+    margin-left: 130px ;
+    margin-top: 40px;
+}
+
+.button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+}

@@ -16,7 +16,7 @@ export class FormUserDetails extends Component {
     render() {
         const { values, handleChange } = this.props;
         return (
-            <MuiThemeProvider>
+            <MuiThemeProvider maxWidth="xs">
                 <React.Fragment>
                     <AppBar title="Enter user details"/>
                     <div id="details" style={{
