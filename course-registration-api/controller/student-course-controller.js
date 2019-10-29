@@ -43,7 +43,7 @@ exports.updateProfile = (req, res) => {
 exports.displayCourseForStudent = async (req, res) => {
     console.log('3')
     console.log(req.user.user)
-    return sequelize.query(`SELECT course.*, faculty.name as fname FROM student INNER JOIN faculty INNER JOIN course ON student.dept = faculty.dept AND faculty.id=course.facultyId AND student.semester=course.semester WHERE student.id=${req.user};`, { type: sequelize.QueryTypes.SELECT })
+    return sequelize.query(`SELECT course.*, faculty.name as fname FROM student INNER JOIN faculty INNER JOIN course ON student.dept = faculty.dept AND faculty.id=course.facultyId AND student.semester=course.semester WHERE student.id=${req.user.user};`, { type: sequelize.QueryTypes.SELECT })
         .then((courses) => {
             res.send(JSON.stringify(courses))
         })

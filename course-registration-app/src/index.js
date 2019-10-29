@@ -15,6 +15,7 @@ import StudentProfile from './profile/student-profile'
 import FacultyHomePage from './home-page/faculty-home'
 import FacultyOfferedCourses from './courses/faculty-offered-courses'
 import AddCourse from './course-creation/add-course'
+import EditCourse from './courses/faculty-edit-course'
 
 const routing = (
     <Router>
@@ -31,6 +32,8 @@ const routing = (
             <Route path = '/student/profile' component = {StudentProfile}/>
             <Route path = '/faculty/courses' component = {FacultyOfferedCourses}/>
             <Route path = '/faculty/add-course' component = {AddCourse}/>
+            <Route path = '/faculty/edit-course' component = {EditCourse}/>
+            
         </div>
     </Router>
 )

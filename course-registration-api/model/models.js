@@ -148,7 +148,7 @@ Timeslot.init({
         primaryKey: true,
     },
     slot: {
-        type: Sequelize.TIME,
+        type: Sequelize.STRING,
         primaryKey: true
     }
 }, {
@@ -185,7 +185,7 @@ let sync = async () => {
     await Registration.sync({ force: false })
     await StudentLogin.sync({force: false})
     await FacultyLogin.sync({force: false})
-    await Timeslot.sync({force: false})
+    await Timeslot.sync({force: true})
 
     // for(let i = 1; i <= 10; i++) {
     //     FacultyLogin.create({

@@ -1,11 +1,11 @@
 
 import React from 'react'
 import { Header, Navigator } from './../faculty-common'
-import CreateCourseForm from './create-course-form'
+import CreateCourseForm from './../course-creation/create-course-form'
 import styles from './../css/profile.module.css'
 import axios from 'axios'
 
-class AddCourse extends React.Component {
+class EditCourse extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -28,20 +28,6 @@ class AddCourse extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleClick = this.handleClick.bind(this)
-    }
-
-    async makeRequest() {
-        let res = await axios.get('/faculty/courses/'+this.state.courseDetails.code)
-        this.setState({
-            courseDetails: {
-                code: res.courseDetails.id,
-                name: res.courseDetails.name,
-                prerequisites: res.courseDetails.type,
-                type: res.courseDetails.type,
-                semester: res.courseDetails.semester,
-            },
-            timeslot: res.timeslots.slice()
-        })
     }
 
     updateState(profile) {
@@ -176,24 +162,61 @@ class AddCourse extends React.Component {
 
     }
 
+    async makeRequest() {
+        let res = await axios.get('/faculty/courses/'+this.props.location.state.courseId)
+        let timeslots = []
+        for(let i = 0; i < res.data.timeslots.length; i++) {
+            let timeslot = {
+                day: res.data.timeslots[i].slot.split(' ')[0],
+                time: res.data.timeslots[i].slot.split(' ')[1],
+            }
+            console.log(res.data.timeslots[i].slot.split(' '))
+            timeslots.push(timeslot)
+        }
+        this.setState({
+            courseDetails: {
+                code: res.data.courseDetails.id,
+                name: res.data.courseDetails.name,
+                prerequisites: res.data.courseDetails.type,
+                type: res.data.courseDetails.type,
+                semester: res.data.courseDetails.semester,
+            },
+            timeslot: timeslots.slice(),
+            requested: true
+        })
+    }
+
     render() {
         document.body.style.backgroundColor = 'whitesmoke'
 
-        return (
-            <div className={styles.body}>
-                <Header title='Profile' value={this.props} />
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <Navigator value={this.props} />
-                    <div className={styles.container} style={{ marginLeft: '10px', marginTop: '10px' }}>
-                        <CreateCourseForm value={this.state} onChange={this.handleChange} onClick={this.handleClick} />
-                    </div>
+        if(!this.state.requested) {
+            this.makeRequest()
+        }
 
+        if(this.state.requested) {
+            return (
+                <div className={styles.body}>
+                    <Header title='Profile' value={this.props} />
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <Navigator value={this.props} />
+                        <div className={styles.container} style={{ marginLeft: '10px', marginTop: '10px' }}>
+                            <CreateCourseForm value={this.state} onChange={this.handleChange} onClick={this.handleClick} />
+                        </div>
+    
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        } else {
+            return(
+                <div>
+                    Loading...
+                </div>
+            )
+        }
+        
 
 
     }
 }
 
-export default AddCourse
+export default EditCourse

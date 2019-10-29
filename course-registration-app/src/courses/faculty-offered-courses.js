@@ -10,7 +10,7 @@ function twoCards(course1, course2, clickHandler) {
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
                 <CourseCard
-                    value={course1} onApplyClick={() => clickHandler('apply', course1.id)}
+                    value={course1} onApplyClick={() => clickHandler('edit', course1.id)}
                     onViewClick={() => clickHandler('view')}
                     button1='Edit'
                     button2='View'
@@ -19,7 +19,7 @@ function twoCards(course1, course2, clickHandler) {
             <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
                 <CourseCard
                     value={course2}
-                    onApplyClick={() => clickHandler('apply', course2.id)} onViewClick={() => clickHandler('view')}
+                    onApplyClick={() => clickHandler('edit', course2.id)} onViewClick={() => clickHandler('view')}
                     button1='Edit'
                     button2='View'
                 />
@@ -34,7 +34,7 @@ function oneCard(course, clickHandler) {
         <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
             <CourseCard value={course} 
             value={course}
-            onApplyClick={() => clickHandler('apply', course.id)} onViewClick={() => clickHandler('view')}
+            onApplyClick={() => clickHandler('edit', course.id)} onViewClick={() => clickHandler('view')}
             button1='Edit'
             button2='View'/>
         </div>
@@ -49,6 +49,7 @@ class FacultyOfferedCourses extends React.Component {
             offeredCourses: [],
             requested: false,
         }
+        this.clickHandler = this.clickHandler.bind(this)
     }
 
     async makeRequest() {
@@ -69,12 +70,10 @@ class FacultyOfferedCourses extends React.Component {
     }
 
     clickHandler(type, courseId) {
-        // if (type == 'apply') {
-        //     axios.post('/faculty/courses/' + courseId)
-        //         .then((res) => {
-        //             window.location.reload()
-        //         })
-        // }
+        console.log('edit')
+        if (type == 'edit') {
+            this.props.history.push('/faculty/edit-course', {courseId: courseId})
+        }
     }
 
     render() {
