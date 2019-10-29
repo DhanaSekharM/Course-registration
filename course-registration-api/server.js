@@ -62,18 +62,22 @@ passport.serializeUser((user, done) => {
     console.log(user)
     let id
     id = user.studentId;
-    if (!id) { id = user.facultyId }
+    let type = 'student'
+    if (!id) { 
+        id = user.facultyId
+        type = 'faculty'
+     }
     console.log(id)
     console.log('End')
-    done(null, id)
+    done(null, {user: id, type: type})
 
 })
 
-passport.deserializeUser(function (username, done) {
+passport.deserializeUser(function (user, done) {
     console.log('Deserializing..')
-    console.log(username)
+    console.log(user)
     console.log('end')
-    done(null, username)
+    done(null, user)
 });
 
 routes(app)

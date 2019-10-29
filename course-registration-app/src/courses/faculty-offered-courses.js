@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import CourseCard from './course-card'
-import { Header, Navigator } from './../common'
+import { Header, Navigator } from './../faculty-common'
 import styles from './../css/course.module.css'
 
 
@@ -12,7 +12,7 @@ function twoCards(course1, course2, clickHandler) {
                 <CourseCard
                     value={course1} onApplyClick={() => clickHandler('apply', course1.id)}
                     onViewClick={() => clickHandler('view')}
-                    button1='Apply'
+                    button1='Edit'
                     button2='View'
                 />
             </div>
@@ -20,7 +20,7 @@ function twoCards(course1, course2, clickHandler) {
                 <CourseCard
                     value={course2}
                     onApplyClick={() => clickHandler('apply', course2.id)} onViewClick={() => clickHandler('view')}
-                    button1='Apply'
+                    button1='Edit'
                     button2='View'
                 />
             </div>
@@ -35,51 +35,46 @@ function oneCard(course, clickHandler) {
             <CourseCard value={course} 
             value={course}
             onApplyClick={() => clickHandler('apply', course.id)} onViewClick={() => clickHandler('view')}
-            button1='Apply'
+            button1='Edit'
             button2='View'/>
         </div>
     )
 }
 
-class Get extends React.Component {
+class FacultyOfferedCourses extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            availableCourses: [],
-            registeredCourses: [],
+            offeredCourses: [],
             requested: false,
         }
     }
 
     async makeRequest() {
-        let availableCourses = await axios.get('/student/courses', {
+        let offeredCourses = await axios.get('/faculty/courses', {
             withCredentials: true
         })
-        let registeredCourses = await axios.get('/student/reg-courses')
         
-        console.log(registeredCourses)
         return {
-            availableCourses: availableCourses,
-            registeredCourses: registeredCourses
+            offeredCourses: offeredCourses,
         }
     }
 
-    updateState(availableCourses, registeredCourses) {
+    updateState(offeredCourses) {
         this.setState({
-            availableCourses: availableCourses.data.slice(),
-            registeredCourses: registeredCourses.data.slice(),
+            offeredCourses: offeredCourses.data.slice(),
             requested: true,
         })
     }
 
     clickHandler(type, courseId) {
-        if (type == 'apply') {
-            axios.post('/student/courses/' + courseId)
-                .then((res) => {
-                    window.location.reload()
-                })
-        }
+        // if (type == 'apply') {
+        //     axios.post('/faculty/courses/' + courseId)
+        //         .then((res) => {
+        //             window.location.reload()
+        //         })
+        // }
     }
 
     render() {
@@ -90,26 +85,18 @@ class Get extends React.Component {
             console.log(response)
             response.then((res) => {
                 console.log(res)
-                this.updateState(res.availableCourses, res.registeredCourses)
+                this.updateState(res.offeredCourses)
             })
         }
 
 
         let cards = []
 
-        let courses = this.state.availableCourses.slice()
+        let courses = this.state.offeredCourses.slice()
 
-        for (let i = 0; i < courses.length; i++) {
-            courses[i]['applied'] = false
-            for (let j = 0; j < this.state.registeredCourses.length; j++) {
-                if (courses[i].id == this.state.registeredCourses[j].courseId) {
-                    courses[i].applied = true
-                }
-            }
-        }
         console.log(courses)
 
-        for (let i = this.state.availableCourses.length - 1; i >= 0; i = i - 2) {
+        for (let i = this.state.offeredCourses.length - 1; i >= 0; i = i - 2) {
             if (i == 0) {
                 cards.push(oneCard(courses[i]), this.clickHandler)
             } else {
@@ -143,4 +130,4 @@ class Get extends React.Component {
 
 }
 
-export default Get
+export default FacultyOfferedCourses

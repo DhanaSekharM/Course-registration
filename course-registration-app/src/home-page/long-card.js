@@ -16,6 +16,9 @@ class LongCard extends React.Component {
 
     render() {
         let title = 'Available Courses'
+        if(typeof(this.props.title) != 'undefined') {
+            title = this.props.title
+        }
         if(this.props.value.color == 'red') title = 'Pending Courses'
         if(this.props.value.color == 'green') title = 'Approved Courses'
         console.log(this.props.value)

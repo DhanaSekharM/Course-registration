@@ -12,12 +12,16 @@ import TimeTableApp from './timetable/timetable'
 import CourseCreation from './course-creation/UserForm'
 import FacultyProfile from './profile/faculty-profile'
 import StudentProfile from './profile/student-profile'
+import FacultyHomePage from './home-page/faculty-home'
+import FacultyOfferedCourses from './courses/faculty-offered-courses'
+import AddCourse from './course-creation/add-course'
 
 const routing = (
     <Router>
         <div>
             <Route path = '/login' component = {LoginForm}/>
             <Route path = '/home' component = {HomePage}/>
+            <Route path = '/faculty/home' component = {FacultyHomePage}/>
             <Route exact path = '/student/courses' component = {Get}/>
             <Route path = '/student/pending-courses' component = {PendingCourses}/>
             <Route path = '/student/approved-courses' component = {ApprovedCourses}/>
@@ -25,6 +29,8 @@ const routing = (
             <Route path = '/faculty/course-creation' component = {CourseCreation}/>
             <Route path = '/faculty/profile' component = {FacultyProfile}/>
             <Route path = '/student/profile' component = {StudentProfile}/>
+            <Route path = '/faculty/courses' component = {FacultyOfferedCourses}/>
+            <Route path = '/faculty/add-course' component = {AddCourse}/>
         </div>
     </Router>
 )

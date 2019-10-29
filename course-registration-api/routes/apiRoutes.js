@@ -19,7 +19,18 @@ module.exports = (app) => {
     app.route('/login')
         .post(passport.authenticate('local'),
             (req, res) => {
-                res.send({ status: 'success' })
+                console.log(req.user)
+                let id
+                id = req.user.studentId;
+                let type = 'student'
+                if (!id) {
+                    id = req.user.facultyId
+                    type = 'faculty'
+                }
+                res.send({
+                    status: 'success',
+                    type: type
+                })
             })
     app.route('/error')
         .get((req, res) => {

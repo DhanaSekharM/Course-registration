@@ -4,7 +4,7 @@ var { Course, Faculty, Student, sequelize } = require('../model/models')
 exports.displayProfile = (req, res) => {
     console.log('fac details requested')
 
-    return sequelize.query(`SELECT * FROM faculty WHERE id='${req.user}'`, { type: sequelize.QueryTypes.SELECT })
+    return sequelize.query(`SELECT * FROM faculty WHERE id='${req.user.user}'`, { type: sequelize.QueryTypes.SELECT })
             .then((out) => {
                 res.send(JSON.stringify(out))
             })
@@ -18,11 +18,11 @@ exports.updateProfile = (req, res) => {
     return sequelize.query(`UPDATE faculty SET 
                             name = '${body.firstName}',
                             email = '${body.email}'
-                            WHERE id = '${req.user}'`)
+                            WHERE id = '${req.user.user}'`)
                         .then((out) => {
                             sequelize.query(`UPDATE facultyLogin SET 
                                         password='${body.password}'
-                                        WHERE facultyId='${req.user}'`)
+                                        WHERE facultyId='${req.user.user}'`)
                                         .then((out1) => {
                                             res.send(JSON.stringify(out1))
                                         })
@@ -37,14 +37,14 @@ exports.updateProfile = (req, res) => {
 
 exports.addCourse = (req, res) => {
     console.log('f1')
-    console.log(req.user)
+    console.log(req.user.user)
     return Course.create({
         id: req.body.id,
         name: req.body.name,
         timeslot: req.body.timeslot,
         type: req.body.type,
         semester: req.body.semester,
-        facultyId: req.user,
+        facultyId: req.user.user,
     }).then((course) => {
         res.send(course)
     })
@@ -55,10 +55,10 @@ exports.addCourse = (req, res) => {
 
 exports.displayCourse = (req, res) => {
     console.log('f2')
-    console.log(req.user)
+    console.log(req.user.user)
     return Course.findAll({
         where: {
-            facultyId: req.user,
+            facultyId: req.user.user,
         }
     }).then((courses) => {
         res.send(JSON.stringify(courses))

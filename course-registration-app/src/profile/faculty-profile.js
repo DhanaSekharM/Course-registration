@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, Navigator } from './../common'
+import { Header, Navigator } from './../faculty-common'
 import Profile from './user-profile'
 import styles from './../css/profile.module.css'
 import axios from 'axios'

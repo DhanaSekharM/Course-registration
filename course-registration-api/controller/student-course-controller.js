@@ -6,7 +6,7 @@ let handler;
 exports.displayProfile = (req, res) => {
     console.log('stu details requested')
 
-    return sequelize.query(`SELECT * FROM student WHERE id='${req.user}'`, { type: sequelize.QueryTypes.SELECT })
+    return sequelize.query(`SELECT * FROM student WHERE id='${req.user.user}'`, { type: sequelize.QueryTypes.SELECT })
             .then((out) => {
                 res.send(JSON.stringify(out))
             })
@@ -22,11 +22,11 @@ exports.updateProfile = (req, res) => {
                             middleName = '${body.middleName}',
                             lastName = '${body.lastName}',
                             email = '${body.email}'
-                            WHERE id = '${req.user}'`)
+                            WHERE id = '${req.user.user}'`)
                         .then((out) => {
                             // sequelize.query(`UPDATE facultyLogin SET 
                             //             password='${body.password}'
-                            //             WHERE facultyId='${req.user}'`)
+                            //             WHERE facultyId='${req.user.user}'`)
                             //             .then((out1) => {
                             //                 res.send(JSON.stringify(out1))
                             //             })
@@ -42,7 +42,7 @@ exports.updateProfile = (req, res) => {
 
 exports.displayCourseForStudent = async (req, res) => {
     console.log('3')
-    console.log(req.user)
+    console.log(req.user.user)
     return sequelize.query(`SELECT course.*, faculty.name as fname FROM student INNER JOIN faculty INNER JOIN course ON student.dept = faculty.dept AND faculty.id=course.facultyId AND student.semester=course.semester WHERE student.id=${req.user};`, { type: sequelize.QueryTypes.SELECT })
         .then((courses) => {
             res.send(JSON.stringify(courses))
@@ -56,7 +56,7 @@ exports.registerCourse = async (req, res) => {
     courseId = String(req.params.id)
     console.log(courseId)
 
-    return sequelize.query(`INSERT INTO registration VALUES('${courseId}', '${req.user}', '${req.body.creation_time}', 'pending')`)
+    return sequelize.query(`INSERT INTO registration VALUES('${courseId}', '${req.user.user}', '${req.body.creation_time}', 'pending')`)
         .then((reg) => {
             res.send(JSON.stringify(reg))
         })
@@ -67,7 +67,7 @@ exports.registerCourse = async (req, res) => {
 
 exports.viewRegisteredCourses = (req, res) => {
     console.log('5')
-    return sequelize.query(`SELECT * FROM registration WHERE studentId=${req.user}`, { type: sequelize.QueryTypes.SELECT })
+    return sequelize.query(`SELECT * FROM registration WHERE studentId=${req.user.user}`, { type: sequelize.QueryTypes.SELECT })
         .then((registrations) => {
             res.send(JSON.stringify(registrations))
         })
@@ -80,7 +80,7 @@ exports.viewPendingCourses = (req, res) => {
     console.log('6')
     return sequelize.
             query(`SELECT course.*, faculty.name AS fname FROM registration INNER JOIN course INNER JOIN faculty ON registration.courseId = course.id
-             AND faculty.id = course.facultyId WHERE studentId='${req.user}' AND status='pending';`, { type: sequelize.QueryTypes.SELECT })
+             AND faculty.id = course.facultyId WHERE studentId='${req.user.user}' AND status='pending';`, { type: sequelize.QueryTypes.SELECT })
              .then((pendingCourses) => {
                  res.send(JSON.stringify(pendingCourses))
              })
@@ -95,7 +95,7 @@ exports.deleteCourse= (req, res) => {
     console.log(req.params.id)
     courseId = req.params.id
 
-    return sequelize.query(`DELETE FROM registration WHERE studentId='${req.user}' AND courseId='${courseId}'`)
+    return sequelize.query(`DELETE FROM registration WHERE studentId='${req.user.user}' AND courseId='${courseId}'`)
             .then((del) => {
                 res.send(del)
             })
@@ -109,7 +109,7 @@ exports.viewApprovedCourses = (req, res) => {
     
     return sequelize.
             query(`SELECT course.*, faculty.name AS fname FROM registration INNER JOIN course INNER JOIN faculty ON registration.courseId = course.id
-             AND faculty.id = course.facultyId WHERE studentId='${req.user}' AND status='approved';`, { type: sequelize.QueryTypes.SELECT })
+             AND faculty.id = course.facultyId WHERE studentId='${req.user.user}' AND status='approved';`, { type: sequelize.QueryTypes.SELECT })
              .then((approvedCourses) => {
                  res.send(JSON.stringify(approvedCourses))
              })
