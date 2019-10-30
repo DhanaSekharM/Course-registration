@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import TimeTable from 'react-timetable-events'
 import Axios from 'axios';
+import { Header, Navigator } from './../common'
 
 class TimeTableApp extends Component {
 
@@ -59,7 +60,7 @@ class TimeTableApp extends Component {
         title={event.name}
         key={event.id}>
         <span className={styles.event_info}>
-           {event.name} 
+          {event.name}
         </span>
         <span className={styles.event_info}>
           {event.startTime.format('HH:mm')} - {event.endTime.format('HH:mm')}
@@ -152,16 +153,23 @@ class TimeTableApp extends Component {
         })
     }
 
-    if(this.state.requested) {
+    if (this.state.requested) {
       return (
         <div>
-          <TimeTable
-            events={this.state.events}
-            renderHour={this.renderHour}
-            renderEvent={this.renderEvent}
-            hoursInterval={[8, 17]}
-            timeLabel="Time :)"
-          />
+          <Header title='Timetable' value={this.props} />
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <Navigator value={this.props} />
+            <div style={{width:'100%'}}>
+            <TimeTable
+              events={this.state.events}
+              renderHour={this.renderHour}
+              renderEvent={this.renderEvent}
+              hoursInterval={[8, 17]}
+              timeLabel="Time :)"
+            />
+            </div>
+            
+          </div>
         </div>
       )
     } else {
@@ -171,7 +179,7 @@ class TimeTableApp extends Component {
         </div>
       )
     }
-    
+
   }
 }
 

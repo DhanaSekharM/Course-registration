@@ -88,6 +88,7 @@ class HomePage extends React.Component {
             color: 'green',
             courses: this.state.approvedCourses.slice()
         }
+        
 
         if (this.state.requested) {
             console.log(availableCourses)

@@ -10,6 +10,7 @@ class CreateCourseFrom extends React.Component {
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
         const time = ['08:00:00-09:00:00', '09:00:00-10:00:00', '10:00:00-11:00:00', '11:00:00-12:00:00', '13:00:00-14:00:00', '14:00:00-15:00:00', '15:00:00-16:00:00', '16:00:00-17:00:00']
         console.log(i)
+        
         return (
             <div
                 style={{
@@ -47,6 +48,10 @@ class CreateCourseFrom extends React.Component {
         }
         console.log(this.props.value.timeslot.length)
 
+        let electiveCheck = false, mandatoryCheck = false, openElectiveCheck = false
+        if(this.props.value.courseDetails.type == 'elective') electiveCheck = true
+        if(this.props.value.courseDetails.type == 'mandatory') mandatoryCheck = true
+        if(this.props.value.courseDetails.type == 'openElective') openElectiveCheck = true
 
         let resetVisibility = this.props.value.inEditMode ? 'visible' : 'hidden'
         let text = this.props.value.inEditMode ? 'Save' : 'Edit'
@@ -58,7 +63,7 @@ class CreateCourseFrom extends React.Component {
                 <div style={{ display: "flex", flexDirection: "row", flexGrow: "1" }}>
                     <div>
                         <h2 className={styles.profileLabel}>
-                            <span className={styles.profileName}> Fname </span>
+                            <span className={styles.profileName}> Course </span>
                         </h2>
                     </div>
                     <div className={styles.formHeading}>
@@ -139,6 +144,94 @@ class CreateCourseFrom extends React.Component {
                                     margin: "15px"
                                 }}
                             >
+                                <label className={styles.fieldLabel} style={{ marginRight: "170px" }}>
+                                    {" "}
+                                    Credits{" "}
+                                </label>
+                                <input
+                                    name="credit"
+                                    style={{ float: "right", width: "700px" }}
+                                    type="text"
+                                    placeholder="eg 4"
+                                    className={styles.profileInput}
+                                    value={this.props.value.courseDetails.credit}
+                                    disabled={!this.props.value.inEditMode}
+                                    onChange={(event) => this.props.onChange(event)}
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    margin: "15px"
+                                }}
+                            >
+                                <label className={styles.fieldLabel} style={{ marginRight: "170px" }}>
+                                    {" "}
+                                    Lecture{" "}
+                                </label>
+                                <input
+                                    name="lecture"
+                                    style={{ float: "right", width: "700px" }}
+                                    type="text"
+                                    placeholder="eg 3"
+                                    className={styles.profileInput}
+                                    value={this.props.value.courseDetails.lecture}
+                                    disabled={!this.props.value.inEditMode}
+                                    onChange={(event) => this.props.onChange(event)}
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    margin: "15px"
+                                }}
+                            >
+                                <label className={styles.fieldLabel} style={{ marginRight: "170px" }}>
+                                    {" "}
+                                    Tutorial{" "}
+                                </label>
+                                <input
+                                    name="tutorial"
+                                    style={{ float: "right", width: "700px" }}
+                                    type="text"
+                                    placeholder="eg 1"
+                                    className={styles.profileInput}
+                                    value={this.props.value.courseDetails.tutorial}
+                                    disabled={!this.props.value.inEditMode}
+                                    onChange={(event) => this.props.onChange(event)}
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    margin: "15px"
+                                }}
+                            >
+                                <label className={styles.fieldLabel} style={{ marginRight: "170px" }}>
+                                    {" "}
+                                    Practical{" "}
+                                </label>
+                                <input
+                                    name="practical"
+                                    style={{ float: "right", width: "700px" }}
+                                    type="text"
+                                    placeholder="eg 1"
+                                    className={styles.profileInput}
+                                    value={this.props.value.courseDetails.practical}
+                                    disabled={!this.props.value.inEditMode}
+                                    onChange={(event) => this.props.onChange(event)}
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    margin: "15px"
+                                }}
+                            >
                                 <label className={styles.fieldLabel} style={{ whiteSpace: "nowrap", marginRight: "40px" }}>
                                     Semester{" "}
                                 </label>{" "}
@@ -162,9 +255,9 @@ class CreateCourseFrom extends React.Component {
                                     Type{" "}
                                 </label>{" "}
                                 <RadioGroup horizontal onChange={(event) => this.props.onChange(event)}>
-                                    <RadioButton value='elective'>Department Elective</RadioButton>
-                                    <RadioButton value='mandatory'>Mandatory</RadioButton>
-                                    <RadioButton value='openElective'>Open Elective</RadioButton>
+                                    <RadioButton checked={electiveCheck} name='type' value='elective'>Department Elective</RadioButton>
+                                    <RadioButton checked={mandatoryCheck} name='type' value='mandatory'>Mandatory</RadioButton>
+                                    <RadioButton checked={openElectiveCheck} name='type' value='openElective'>Open Elective</RadioButton>
                                 </RadioGroup>
                             </div>
                         </form>{" "}

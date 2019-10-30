@@ -14,7 +14,7 @@ class Header extends React.Component {
                     <h1 className={styles.box} onClick={() => this.handleLogoClick()}>OCR</h1>
                 </div>
                 <div className={styles.pageTitle}>
-                    <h1 >{this.props.title}</h1>
+                    <h1 style={{ display: 'inline-block' }}>{this.props.title}</h1>
                 </div>
             </div>
         )
@@ -24,7 +24,7 @@ class Header extends React.Component {
 class Navigator extends React.Component {
 
     handleNavClick(page) {
-        switch(page) {
+        switch (page) {
             case 'available':
                 this.props.value.history.push('/student/courses')
                 break
@@ -34,11 +34,11 @@ class Navigator extends React.Component {
             case 'approved':
                 this.props.value.history.push('/student/approved-courses')
                 break
-            case 'graded':
-                alert('yeet')
+            case 'timetable':
+                this.props.value.history.push('/student/timetable')
                 break
             case 'profile':
-                    this.props.value.history.push('/student/profile')
+                this.props.value.history.push('/student/profile')
                 break
         }
     }
@@ -47,6 +47,8 @@ class Navigator extends React.Component {
         return (
             <div style={{ marginTop: '-15px' }}>
                 <ul className={styles.navList}>
+                    <li className={styles.menuLi} onClick={() => this.handleNavClick('available')}>Menu</li>
+                    <li className={styles.li} onClick={() => this.handleNavClick('timetable')}>Timetable</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('available')}>Available Courses</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('pending')}>Pending Courses</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('approved')}>Approved Courses</li>

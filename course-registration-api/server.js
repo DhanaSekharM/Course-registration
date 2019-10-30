@@ -44,7 +44,7 @@ passport.use(new LocalStrategy(
         if (isFaculty) {
             await sequelize.query(`SELECT * FROM facultyLogin WHERE facultyId = ${username}`, { type: sequelize.QueryTypes.SELECT })
                 .then((user) => {
-                    console.log(user[0].facultyId)
+                    console.log(user)
                     if (user[0]) {
                         if (password == user[0].password) {
                             return done(null, user[0])
@@ -52,6 +52,9 @@ passport.use(new LocalStrategy(
                             return done(null)
                         }
                     }
+                })
+                .catch((err) => {
+                    console.log(err)
                 })
         }
     }

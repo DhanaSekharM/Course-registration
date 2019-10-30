@@ -16,7 +16,11 @@ exports.displayProfile = (req, res) => {
 exports.updateProfile = (req, res) => {
     let body = req.body
     return sequelize.query(`UPDATE faculty SET 
-                            name = '${body.firstName}',
+                            firstName = '${body.firstName}',
+                            middleName = '${body.middleName}',
+                            lastName = '${body.lastName}',
+                            sex = '${body.sex}',
+                            phone = '${body.phone}',
                             email = '${body.email}'
                             WHERE id = '${req.user.user}'`)
         .then((out) => {
@@ -54,7 +58,8 @@ exports.addCourse = (req, res) => {
     //     })
 
     return sequelize.query(`INSERT INTO course VALUES('${req.body.id}', '${req.body.name}', 
-                    '${req.body.type}', '${req.body.semester}', '${req.user.user}', 'None')`)
+                    '${req.body.type}', '${req.body.semester}', '${req.user.user}', '${req.body.prerequisites}', ${req.body.credit}, ${req.body.lecture},
+                    ${req.body.tutorial}, ${req.body.practical})`)
         .then((out) => {
             res.send(JSON.stringify(out))
         })
@@ -94,15 +99,23 @@ exports.addTimeslot = (req, res) => {
     console.log(req.body[0])
     body = req.body
 
-    for (let i = 0; i < body.length; i++) {
-        sequelize.query(`INSERT INTO timeslot VALUES('${body[i].id}', '${body[i].timeslot}')`)
-            .then((out) => {
-                // res.send(JSON.stringify(out))
-            })
-            .catch((err) => {
-                // res.send(JSON.stringify(err))
-            })
-    }
+    sequelize.query(`DELETE FROM timeslot WHERE courseId='${body[0].id}'`)
+        .then((out) => {
+            for (let i = 0; i < body.length; i++) {
+                sequelize.query(`INSERT INTO timeslot VALUES('${body[i].id}', '${body[i].timeslot}')`)
+                    .then((out) => {
+                        res.send(JSON.stringify(out))
+                    })
+                    .catch((err) => {
+                        res.send(JSON.stringify(err))
+                    })
+            }
+        })
+        .catch((out) => {
+
+        })
+
+
 
 }
 
@@ -124,7 +137,6 @@ exports.previewCourse = (req, res) => {
     let response
     sequelize.query(`SELECT * FROM course WHERE id='${courseId}'`, { type: sequelize.QueryTypes.SELECT })
         .then((out) => {
-
             sequelize.query(`SELECT * FROM timeslot WHERE courseId='${courseId}'`, { type: sequelize.QueryTypes.SELECT })
                 .then((out1) => {
                     response = {
@@ -154,5 +166,25 @@ exports.viewRegCourses = (req, res) => {
             res.send(err)
         })
 
+
+}
+
+exports.editCourse = (req, res) => {
+    sequelize.query(`UPDATE course SET  id = '${req.body.id}',
+                                        name = '${req.body.name}', 
+                                        type = '${req.body.type}', 
+                                        semester = '${req.body.semester}', 
+                                        prerequisites = '${req.body.prerequisites}',
+                                        credit= ${req.body.credit},
+                                        lecture= ${req.body.lecture},
+                                        tutorial= ${req.body.tutorial},
+                                        practical= ${req.body.practical}
+                                        WHERE id='${req.body.id}'`)
+        .then((out) => {
+            res.send(out)
+        })
+        .catch((out) => {
+            res.send(out)
+        })
 
 }

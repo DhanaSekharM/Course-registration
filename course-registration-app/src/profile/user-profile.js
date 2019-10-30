@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./../css/profile.module.css";
+import { RadioGroup, RadioButton } from 'react-radio-buttons'
 
 
 function create_blob(file, callback) {
@@ -24,6 +25,13 @@ class Profile extends React.Component {
             create_blob(this.props.value.file, (blob) => {
                 console.log(blob)
             })           
+        }
+
+        let maleCheck = false, femaleCheck = false
+        if(this.props.value.userDetails.sex == 'Male' || this.props.value.userDetails.sex == 'male') {
+            maleCheck = true
+        } else {
+            femaleCheck = true
         }
 
         return (
@@ -153,7 +161,7 @@ class Profile extends React.Component {
                                     placeholder="fname@email.com"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
-                                    value={this.props.value.userDetails.firstName}
+                                    value={this.props.value.userDetails.middleName}
                                     onChange={(event) => this.props.onChange(event)}
                                 />
                             </div>{" "}
@@ -169,13 +177,13 @@ class Profile extends React.Component {
                                     Last Name{" "}
                                 </label>
                                 <input
-                                    name="middleName"
+                                    name="lastName"
                                     style={{ float: "right", width: "700px" }}
                                     type="text"
                                     placeholder="fname@email.com"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
-                                    value={this.props.value.userDetails.firstName}
+                                    value={this.props.value.userDetails.lastName}
                                     onChange={(event) => this.props.onChange(event)}
                                 />
                             </div>
@@ -187,8 +195,10 @@ class Profile extends React.Component {
                                 }}
                             >
                                 <label className={styles.fieldLabel} style={{ float: "left", marginRight: "150px" }}>Gender</label>
-                                <input name="male" type="radio" name="gender" value="male" /> Male{" "}
-                                <input name="female" type="radio" name="gender" value="female" /> Female{" "}
+                                <RadioGroup horizontal onChange={(event) => this.props.onChange(event)}>
+                                    <RadioButton checked={maleCheck} name='sex' value='male'>Male</RadioButton>
+                                    <RadioButton checked={femaleCheck} name='sex' value='female'>Female</RadioButton>
+                                </RadioGroup>
                             </div>{" "}
                         </form>{" "}
                         <hr />
@@ -230,7 +240,7 @@ class Profile extends React.Component {
                                     placeholder="fname@email.com"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
-                                    value={this.props.value.userDetails.phoneNumber}
+                                    value={this.props.value.userDetails.phone}
                                     onChange={(event) => this.props.onChange(event)}
                                 />
                             </div>{" "}

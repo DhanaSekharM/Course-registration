@@ -19,6 +19,7 @@ class StudentProfile extends React.Component {
                 email: '',
                 phoneNumber: '',
                 department: '',
+                sex: '',
 
             },
             requested: false
@@ -40,18 +41,25 @@ class StudentProfile extends React.Component {
                 middleName: profile.middleName,
                 lastName: profile.lastName,
                 email: profile.email,
-                phoneNumber: '1234567890',
-                department: profile.dept
+                phoneNumber: profile.phone,
+                department: profile.dept,
+                sex: profile.sex
             },
             requested: true,
         })
     }
 
     handleChange(event) {
-        const name = event.target.name
-        const value = event.target.value
         const userDetailsCopy = JSON.parse(JSON.stringify(this.state.userDetails));
-        userDetailsCopy[name] = value
+        console.log(event)
+        if (typeof (event.target) == 'undefined') {
+            userDetailsCopy.sex = event
+        } else {
+            const name = event.target.name
+            const value = event.target.value
+            userDetailsCopy[name] = value
+        }
+
         // alert(event.target.name)
         this.setState({
             userDetails: userDetailsCopy
@@ -64,7 +72,9 @@ class StudentProfile extends React.Component {
             password: this.state.userDetails.password,
             firstName: this.state.userDetails.firstName,
             middleName: this.state.userDetails.middleName,
-            lastName: this.state.userDetails.lastName
+            lastName: this.state.userDetails.lastName,
+            sex: this.state.userDetails.sex
+
         }
         return await axios.post('/student/profile', body)
     }

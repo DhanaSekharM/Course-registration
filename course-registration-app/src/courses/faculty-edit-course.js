@@ -16,6 +16,10 @@ class EditCourse extends React.Component {
                 prerequisites: '',
                 type: '',
                 semester: '',
+                credit: '',
+                lecture: '',
+                tutorial: '',
+                practical: ''
             },
             timeslot: [
                 {
@@ -30,19 +34,20 @@ class EditCourse extends React.Component {
         this.handleClick = this.handleClick.bind(this)
     }
 
-    updateState(profile) {
-        console.log(profile)
-        this.setState({
-            userDetails: {
-                id: profile.id,
-                firstName: profile.name,
-                email: profile.email,
-                phoneNumber: '1234567890',
-                department: 'CSE'
-            },
-            requested: true,
-        })
-    }
+    // updateState(profile) {
+    //     console.log(profile)
+    //     this.setState({
+    //         userDetails: {
+    //             id: profile.id,
+    //             firstName: profile.name,
+    //             email: profile.email,
+    //             phoneNumber: '1234567890',
+    //             department: profile.dept,
+    //             type: profile.type
+    //         },
+    //         requested: true,
+    //     })
+    // }
 
     handleChange(event, type, i) {
         console.log(event)
@@ -61,9 +66,6 @@ class EditCourse extends React.Component {
                     timeslotCopy[i].time = event.value
                 }
             }
-
-
-
             this.setState({
                 timeslot: timeslotCopy
             })
@@ -101,8 +103,13 @@ class EditCourse extends React.Component {
             name: this.state.courseDetails.name,
             type: this.state.courseDetails.type,
             semester: this.state.courseDetails.semester,
+            prerequisites: this.state.courseDetails.prerequisites,
+            lecture: this.state.courseDetails.lecture,
+            tutorial: this.state.courseDetails.tutorial,
+            practical: this.state.courseDetails.practical,
+            credit: this.state.courseDetails.credit
         }
-        return await axios.post('/faculty/courses', body)
+        return await axios.post('/faculty/edit-course', body)
     }
 
     async addTimeslots() {
@@ -138,13 +145,16 @@ class EditCourse extends React.Component {
         }
 
         if(type == 'save') {
+            console.log('121212')
             this.createCourse()
                 .then((res) => {
                     console.log(res)
                     this.addTimeslots()
                         .then((res) => {
+                            // alert('hi')
                             console.log(res)
                             this.makeRequest()
+                                .then((out) => {})
                             window.location.reload()
                         })
                         .catch((err) => {
@@ -178,9 +188,13 @@ class EditCourse extends React.Component {
             courseDetails: {
                 code: res.data.courseDetails.id,
                 name: res.data.courseDetails.name,
-                prerequisites: res.data.courseDetails.type,
+                prerequisites: res.data.courseDetails.prerequisites,
                 type: res.data.courseDetails.type,
                 semester: res.data.courseDetails.semester,
+                credit: res.data.courseDetails.credit,
+                lecture: res.data.courseDetails.lecture,
+                tutorial: res.data.courseDetails.tutorial,
+                practical: res.data.courseDetails.practical
             },
             timeslot: timeslots.slice(),
             requested: true

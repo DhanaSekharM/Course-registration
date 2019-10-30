@@ -11,7 +11,7 @@ class CourseCard extends React.Component {
             <div className={styles.courseCard}>
                 <div style={{}}>
                     <p style={{ fontFamily: 'Times', fontSize: '24px', display: 'inline-block', marginTop: '0', marginBottom: '0' }}><b>{this.props.value.id}</b></p>
-                    <p style={{ fontFamily: 'Times', fontSize: '24px', display: 'inline-block', marginTop: '0', marginBottom: '0', marginLeft: '60%' }}><b>CGPA: {(this.props.value.cgpa)}</b></p>
+                    <p style={{ fontFamily: 'Times', fontSize: '24px', display: 'inline-block', marginTop: '0', marginBottom: '0', marginLeft: '50%' }}><b>CGPA: {(this.props.value.cgpa)}</b></p>
                 </div>
 
 

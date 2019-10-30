@@ -34,29 +34,33 @@ class AddCourse extends React.Component {
         let res = await axios.get('/faculty/courses/'+this.state.courseDetails.code)
         this.setState({
             courseDetails: {
-                code: res.courseDetails.id,
-                name: res.courseDetails.name,
-                prerequisites: res.courseDetails.type,
-                type: res.courseDetails.type,
-                semester: res.courseDetails.semester,
+                code: res.data.courseDetails.id,
+                name: res.data.courseDetails.name,
+                prerequisites: res.data.courseDetails.prerequisites,
+                type: res.data.courseDetails.type,
+                semester: res.data.courseDetails.semester,
+                credit: res.data.courseDetails.credit,
+                lecture: res.data.courseDetails.lecture,
+                tutorial: res.data.courseDetails.tutorial,
+                practical: res.data.courseDetails.practical
             },
-            timeslot: res.timeslots.slice()
+            timeslot: res.data.timeslots.slice()
         })
     }
 
-    updateState(profile) {
-        console.log(profile)
-        this.setState({
-            userDetails: {
-                id: profile.id,
-                firstName: profile.name,
-                email: profile.email,
-                phoneNumber: '1234567890',
-                department: 'CSE'
-            },
-            requested: true,
-        })
-    }
+    // updateState(profile) {
+    //     console.log(profile)
+    //     this.setState({
+    //         userDetails: {
+    //             id: profile.id,
+    //             firstName: profile.name,
+    //             email: profile.email,
+    //             phoneNumber: '1234567890',
+    //             department: 'CSE'
+    //         },
+    //         requested: true,
+    //     })
+    // }
 
     handleChange(event, type, i) {
         console.log(event)
@@ -112,7 +116,11 @@ class AddCourse extends React.Component {
             name: this.state.courseDetails.name,
             type: this.state.courseDetails.type,
             semester: this.state.courseDetails.semester,
-            prerequisites: this.state.courseDetails.prerequisites
+            prerequisites: this.state.courseDetails.prerequisites,
+            lecture: this.state.courseDetails.lecture,
+            tutorial: this.state.courseDetails.tutorial,
+            practical: this.state.courseDetails.practical,
+            credit: this.state.courseDetails.credit
         }
         return await axios.post('/faculty/courses', body)
     }
@@ -179,7 +187,7 @@ class AddCourse extends React.Component {
 
         return (
             <div className={styles.body}>
-                <Header title='Profile' value={this.props} />
+                <Header title='Add Course' value={this.props} />
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <Navigator value={this.props} />
                     <div className={styles.container} style={{ marginLeft: '10px', marginTop: '10px' }}>

@@ -24,21 +24,21 @@ class Header extends React.Component {
 class Navigator extends React.Component {
 
     handleNavClick(page) {
-        switch(page) {
+        switch (page) {
             case 'offered':
                 this.props.value.history.push('/faculty/courses')
                 break
             case 'pending':
-                this.props.value.history.push('/faculty/pending-courses')
+                this.props.value.history.push('/faculty/reg-courses')
                 break
-            case 'approved':
-                this.props.value.history.push('/faculty/approved-courses')
+            case 'add':
+                this.props.value.history.push('/faculty/add-course')
                 break
             case 'graded':
                 alert('yeet')
                 break
             case 'profile':
-                    this.props.value.history.push('/faculty/profile')
+                this.props.value.history.push('/faculty/profile')
                 break
         }
     }
@@ -47,9 +47,10 @@ class Navigator extends React.Component {
         return (
             <div style={{ marginTop: '-15px' }}>
                 <ul className={styles.navList}>
+                    <li className={styles.menuLi} onClick={() => this.handleNavClick('available')}>Menu</li>
+                    <li className={styles.li} onClick={() => this.handleNavClick('add')}>Add Courses</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('offered')}>Offered Courses</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('pending')}>Pending Courses</li>
-                    <li className={styles.li} onClick={() => this.handleNavClick('approved')}>Approved Courses</li>
                     {/* <li className={styles.li} onClick={() => this.handleNavClick('graded')}>Graded Courses</li> */}
                     <li className={styles.li} onClick={() => this.handleNavClick('profile')}>Profile</li>
                 </ul>

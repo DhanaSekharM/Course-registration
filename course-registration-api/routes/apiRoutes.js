@@ -75,6 +75,9 @@ module.exports = (app) => {
     app.route('/faculty/reg-courses')
         .get(facultyController.viewRegCourses)
 
+    app.route('/faculty/edit-course')
+        .post(facultyController.editCourse)
+
 
 
 

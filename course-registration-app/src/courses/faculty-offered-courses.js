@@ -4,6 +4,39 @@ import CourseCard from './course-card'
 import { Header, Navigator } from './../faculty-common'
 import styles from './../css/course.module.css'
 
+function threeCards(course1, course2, course3, clickHandler) {
+    return (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ width: '400px', margin: '40px 40px 40px 50px' }}>
+                <CourseCard
+                    value={course1}
+                    onApplyClick={() => clickHandler('delete', course1.id)} onViewClick={() => clickHandler('view')}
+                    button1='Delete'
+                    button2='View'
+                    approved='true'
+                />
+            </div>
+            <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
+                <CourseCard value={course2}
+                    onApplyClick={() => clickHandler('delete', course2.id)} onViewClick={() => clickHandler('view')}
+                    button1='Delete'
+                    button2='View'
+                    approved='true'
+                />
+            </div>
+            <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
+                <CourseCard value={course2}
+                    onApplyClick={() => clickHandler('delete', course3.id)} onViewClick={() => clickHandler('view')}
+                    button1='Delete'
+                    button2='View'
+                    approved='true'
+                />
+            </div>
+            
+        </div>
+        
+    )
+}
 
 function twoCards(course1, course2, clickHandler) {
     return (
@@ -98,8 +131,11 @@ class FacultyOfferedCourses extends React.Component {
         for (let i = this.state.offeredCourses.length - 1; i >= 0; i = i - 2) {
             if (i == 0) {
                 cards.push(oneCard(courses[i], this.clickHandler))
-            } else {
+                // cards.push(threeCards(courses[i], courses[i], courses[i], this.clickHandler))
+            } else if (i == 1) {
                 cards.push(twoCards(courses[i], courses[i - 1], this.clickHandler))
+            } else {
+                cards.push(threeCards(courses[i], courses[i - 1], courses[i - 2], this.clickHandler))
             }
 
         }

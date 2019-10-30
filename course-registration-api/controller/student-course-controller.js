@@ -21,7 +21,8 @@ exports.updateProfile = (req, res) => {
                             firstName = '${body.firstName}',
                             middleName = '${body.middleName}',
                             lastName = '${body.lastName}',
-                            email = '${body.email}'
+                            email = '${body.email}',
+                            sex =  '${body.sex}'
                             WHERE id = '${req.user.user}'`)
                         .then((out) => {
                             // sequelize.query(`UPDATE facultyLogin SET 

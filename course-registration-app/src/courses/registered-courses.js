@@ -73,7 +73,7 @@ class RegisteredCourses extends React.Component {
                     })
                 break
             case 'drop':
-                alert('droppd')
+                // alert('droppd')
                     this.dropCourse(courseId, studentId)
                     .then((res) => {
                         window.location.reload()

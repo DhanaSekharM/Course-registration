@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./../css/profile.module.css";
+import { RadioGroup, RadioButton } from 'react-radio-buttons'
 
 class Profile extends React.Component {
     render() {
@@ -7,6 +8,13 @@ class Profile extends React.Component {
 
         let resetVisibility = this.props.value.inEditMode?'visible':'hidden'
         let text = this.props.value.inEditMode?'Save':'Edit'
+
+        let maleCheck = false, femaleCheck = false
+        if(this.props.value.userDetails.sex == 'Male' || this.props.value.userDetails.sex == 'male') {
+            maleCheck = true
+        } else {
+            femaleCheck = true
+        }
 
         return (
             <div>
@@ -169,8 +177,10 @@ class Profile extends React.Component {
                                 }}
                             >
                                 <label className={styles.fieldLabel} style={{ float: "left", marginRight: "150px" }}>Gender</label>
-                                <input name="male" type="radio" name="gender" value="male" checked /> Male{" "}
-                                <input name="female" type="radio" name="gender" value="female" /> Female{" "}
+                                <RadioGroup horizontal onChange={(event) => this.props.onChange(event)}>
+                                    <RadioButton checked={maleCheck} name='sex' value='male'>Male</RadioButton>
+                                    <RadioButton checked={femaleCheck} name='sex' value='female'>Female</RadioButton>
+                                </RadioGroup>
                             </div>{" "}
                         </form>{" "}
                         <hr />

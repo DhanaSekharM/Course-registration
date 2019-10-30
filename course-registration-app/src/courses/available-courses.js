@@ -1,15 +1,53 @@
 import React from 'react'
 import axios from 'axios'
 import CourseCard from './course-card'
-import { Header, Navigator } from './../common'
+import { Header, Navigator } from '../common'
 import styles from './../css/course.module.css'
+import { timingSafeEqual } from 'crypto'
 
+function threeCards(course1, course2, course3, clickHandler, timeslots) {
+    return (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ width: '400px', margin: '40px 40px 40px 50px' }}>
+                <CourseCard
+                    value={course1}
+                    timeslots={timeslots}
+                    onApplyClick={() => clickHandler('delete', course1.id)} onViewClick={() => clickHandler('view')}
+                    button1='Delete'
+                    button2='View'
+                    approved='true'
+                />
+            </div>
+            <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
+                <CourseCard value={course2}
+                    timeslots={timeslots}
+                    onApplyClick={() => clickHandler('delete', course2.id)} onViewClick={() => clickHandler('view')}
+                    button1='Delete'
+                    button2='View'
+                    approved='true'
+                />
+            </div>
+            <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
+                <CourseCard value={course2}
+                    timeslots={timeslots}
+                    onApplyClick={() => clickHandler('delete', course3.id)} onViewClick={() => clickHandler('view')}
+                    button1='Delete'
+                    button2='View'
+                    approved='true'
+                />
+            </div>
 
-function twoCards(course1, course2, clickHandler) {
+        </div>
+
+    )
+}
+
+function twoCards(course1, course2, clickHandler, timeslots) {
     return (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
                 <CourseCard
+                    timeslots={timeslots}
                     value={course1} onApplyClick={() => clickHandler('apply', course1.id)}
                     onViewClick={() => clickHandler('view')}
                     button1='Apply'
@@ -18,6 +56,7 @@ function twoCards(course1, course2, clickHandler) {
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
                 <CourseCard
+                    timeslots={timeslots}
                     value={course2}
                     onApplyClick={() => clickHandler('apply', course2.id)} onViewClick={() => clickHandler('view')}
                     button1='Apply'
@@ -29,16 +68,17 @@ function twoCards(course1, course2, clickHandler) {
     )
 }
 
-function oneCard(course, clickHandler) {
+function oneCard(course, clickHandler, timeslots) {
     return (
         <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
-        <CourseCard
-            value={course}
-            onApplyClick={() => clickHandler('apply', course.id)} onViewClick={() => clickHandler('view')}
-            button1='Apply'
-            button2='View'
-        />
-    </div>
+            <CourseCard
+                value={course}
+                timeslots={timeslots}
+                onApplyClick={() => clickHandler('apply', course.id)} onViewClick={() => clickHandler('view')}
+                button1='Apply'
+                button2='View'
+            />
+        </div>
     )
 }
 
@@ -49,6 +89,7 @@ class Get extends React.Component {
         this.state = {
             availableCourses: [],
             registeredCourses: [],
+            timeslots: [],
             requested: false,
         }
         this.clickHandler = this.clickHandler.bind(this)
@@ -59,18 +100,21 @@ class Get extends React.Component {
             withCredentials: true
         })
         let registeredCourses = await axios.get('/student/reg-courses')
-        
+        let timeslots = await axios.get('/student/view-timeslot')
+
         console.log(registeredCourses)
         return {
             availableCourses: availableCourses,
-            registeredCourses: registeredCourses
+            registeredCourses: registeredCourses,
+            timeslots: timeslots
         }
     }
 
-    updateState(availableCourses, registeredCourses) {
+    updateState(availableCourses, registeredCourses, timeslots) {
         this.setState({
             availableCourses: availableCourses.data.slice(),
             registeredCourses: registeredCourses.data.slice(),
+            timeslots: timeslots.data.slice(),
             requested: true,
         })
     }
@@ -92,7 +136,7 @@ class Get extends React.Component {
             console.log(response)
             response.then((res) => {
                 console.log(res)
-                this.updateState(res.availableCourses, res.registeredCourses)
+                this.updateState(res.availableCourses, res.registeredCourses, res.timeslots)
             })
         }
 
@@ -113,9 +157,12 @@ class Get extends React.Component {
 
         for (let i = this.state.availableCourses.length - 1; i >= 0; i = i - 2) {
             if (i == 0) {
-                cards.push(oneCard(courses[i], this.clickHandler))
+                cards.push(oneCard(courses[i], this.clickHandler, this.state.timeslots))
+                // cards.push(threeCards(courses[i], courses[i], courses[i], this.clickHandler))
+            } else if (i == 1) {
+                cards.push(twoCards(courses[i], courses[i - 1], this.clickHandler, this.state.timeslots))
             } else {
-                cards.push(twoCards(courses[i], courses[i - 1], this.clickHandler))
+                cards.push(threeCards(courses[i], courses[i - 1], courses[i - 2], this.clickHandler, this.state.timeslots))
             }
 
         }
@@ -125,7 +172,7 @@ class Get extends React.Component {
                 <div className={styles.body}>
                     <Header title='Available Courses' value={this.props} />
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Navigator value={this.props}/>
+                        <Navigator value={this.props} />
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             {cards.map((card) => { return card })}
                         </div>
