@@ -1,12 +1,30 @@
 import React from "react";
 import styles from "./../css/profile.module.css";
 
+
+function create_blob(file, callback) {
+    var reader = new FileReader();
+    reader.onload = function() { callback(reader.result) };
+    reader.readAsDataURL(file);
+}
+
 class Profile extends React.Component {
     render() {
 
 
-        let resetVisibility = this.props.value.inEditMode?'visible':'hidden'
-        let text = this.props.value.inEditMode?'Save':'Edit'
+        let resetVisibility = this.props.value.inEditMode ? 'visible' : 'hidden'
+        let text = this.props.value.inEditMode ? 'Save' : 'Edit'
+        let imgUrl = require('./../assets/profile-placeholder.jpeg')
+        var imageToBlob = require('image-to-blob')
+
+        
+
+
+        if (this.props.value.imgUrl != null) {
+            create_blob(this.props.value.file, (blob) => {
+                console.log(blob)
+            })           
+        }
 
         return (
             <div>
@@ -16,8 +34,8 @@ class Profile extends React.Component {
                             Profile:
                             <span className={styles.profileName}> Fname </span>
                         </h2>
-                        <img src={require("./../assets/profile-placeholder.jpeg")} style={{ maxHeight: '360px', maxWidth: '360px' }} />
-                        <br /> <button className={styles.button}> Upload </button>{" "}
+                        <img src={imgUrl} style={{ maxHeight: '360px', maxWidth: '360px' }} />
+                        <br /> <input type='file' onChange={(event) => this.props.handleUpload(event)} />
                     </div>
                     <div className={styles.formHeading}>
                         <div>
@@ -239,7 +257,7 @@ class Profile extends React.Component {
                         </form>
                         <div style={{ marginTop: '-40px' }}>
                             <button className={styles.button} onClick={() => this.props.onClick(text)}>{text}</button>
-                            <button className={styles.button} onClick={() => this.props.onClick('reset')} style={{backgroundColor: 'blue', visibility: resetVisibility }}>Reset</button>
+                            <button className={styles.button} onClick={() => this.props.onClick('reset')} style={{ backgroundColor: 'blue', visibility: resetVisibility }}>Reset</button>
                         </div>
                     </div>
                 </div>

@@ -169,7 +169,7 @@ class Profile extends React.Component {
                                 }}
                             >
                                 <label className={styles.fieldLabel} style={{ float: "left", marginRight: "150px" }}>Gender</label>
-                                <input name="male" type="radio" name="gender" value="male" /> Male{" "}
+                                <input name="male" type="radio" name="gender" value="male" checked /> Male{" "}
                                 <input name="female" type="radio" name="gender" value="female" /> Female{" "}
                             </div>{" "}
                         </form>{" "}

@@ -43,7 +43,7 @@ exports.updateProfile = (req, res) => {
 exports.displayCourseForStudent = async (req, res) => {
     console.log('3')
     console.log(req.user.user)
-    return sequelize.query(`SELECT course.*, faculty.name as fname FROM student INNER JOIN faculty INNER JOIN course ON student.dept = faculty.dept AND faculty.id=course.facultyId AND student.semester=course.semester WHERE student.id=${req.user.user};`, { type: sequelize.QueryTypes.SELECT })
+    return sequelize.query(`SELECT course.*, faculty.firstName as fname FROM student INNER JOIN faculty INNER JOIN course ON student.dept = faculty.dept AND faculty.id=course.facultyId AND student.semester=course.semester WHERE student.id=${req.user.user};`, { type: sequelize.QueryTypes.SELECT })
         .then((courses) => {
             res.send(JSON.stringify(courses))
         })
@@ -79,7 +79,7 @@ exports.viewRegisteredCourses = (req, res) => {
 exports.viewPendingCourses = (req, res) => {
     console.log('6')
     return sequelize.
-            query(`SELECT course.*, faculty.name AS fname FROM registration INNER JOIN course INNER JOIN faculty ON registration.courseId = course.id
+            query(`SELECT course.*, faculty.firstName AS fname FROM registration INNER JOIN course INNER JOIN faculty ON registration.courseId = course.id
              AND faculty.id = course.facultyId WHERE studentId='${req.user.user}' AND status='pending';`, { type: sequelize.QueryTypes.SELECT })
              .then((pendingCourses) => {
                  res.send(JSON.stringify(pendingCourses))
@@ -108,7 +108,7 @@ exports.viewApprovedCourses = (req, res) => {
     console.log('7')
     
     return sequelize.
-            query(`SELECT course.*, faculty.name AS fname FROM registration INNER JOIN course INNER JOIN faculty ON registration.courseId = course.id
+            query(`SELECT course.*, faculty.firstName AS fname FROM registration INNER JOIN course INNER JOIN faculty ON registration.courseId = course.id
              AND faculty.id = course.facultyId WHERE studentId='${req.user.user}' AND status='approved';`, { type: sequelize.QueryTypes.SELECT })
              .then((approvedCourses) => {
                  res.send(JSON.stringify(approvedCourses))
@@ -116,6 +116,18 @@ exports.viewApprovedCourses = (req, res) => {
              .catch((err) => {
                  res.send(err)
              })
+}
+
+exports.viewTimeslots = (req, res) => {
+    return sequelize.query(`SELECT * FROM registration INNER JOIN timeslot INNER JOIN course 
+                            ON course.id = registration.courseId AND timeslot.courseId = registration.courseId 
+                            WHERE registration.studentId = '${req.user.user}'`, { type: sequelize.QueryTypes.SELECT })
+                            .then((out) => {
+                                res.send(JSON.stringify(out))
+                            })
+                            .catch((err) => {
+                                res.send(JSON.stringify(out))
+                            })
 }
 
 // module.exports(handler)

@@ -19,12 +19,16 @@ class FacultyProfile extends React.Component {
                 email: '',
                 phoneNumber: '',
                 department: '',
+                gender: ''
 
             },
-            requested: false
+            requested: false,
+            imgUrl: null,
+            file: null
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.handleUpload = this.handleUpload.bind(this)
     }
 
     async makeRequest() {
@@ -39,7 +43,7 @@ class FacultyProfile extends React.Component {
                 firstName: profile.name,
                 email: profile.email,
                 phoneNumber: '1234567890',
-                department: 'CSE'
+                department: 'CSE',
             },
             requested: true,
         })
@@ -54,6 +58,14 @@ class FacultyProfile extends React.Component {
         this.setState({
             userDetails: userDetailsCopy
         })
+    }
+
+    handleUpload(event) {
+        // alert(event.target.files[0])
+        this.setState({
+            imgUrl: URL.createObjectURL(event.target.files[0]),
+            file: event.target.files[0]
+          })
     }
 
     async updateProfile() {
@@ -108,7 +120,7 @@ class FacultyProfile extends React.Component {
                         <Navigator value={this.props} />
 
                         <div className={styles.container} style={{ marginLeft: '10px', marginTop: '10px' }}>
-                            <Profile value={this.state} onChange={this.handleChange} onClick={this.handleClick} />
+                            <Profile value={this.state} onChange={this.handleChange} onClick={this.handleClick} handleUpload={this.handleUpload}/>
                         </div>
 
 

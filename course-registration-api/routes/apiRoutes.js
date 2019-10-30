@@ -49,11 +49,14 @@ module.exports = (app) => {
         .get(controller.displayProfile)
         .post(controller.updateProfile)
 
+    app.route('/student/view-timeslot')
+        .get(controller.viewTimeslots)
+
     app.route('/faculty/approve-course')
         .post(facultyController.approveCourse)
 
     app.route('/faculty/drop-course')
-        .delete(facultyController.dropCourse)
+        .post(facultyController.dropCourse)
 
     app.route('/faculty/timeslot')
         .post(facultyController.addTimeslot)
@@ -64,9 +67,13 @@ module.exports = (app) => {
     
     app.route('/faculty/courses/:id')
         .get(facultyController.previewCourse)
+
     app.route('/faculty/profile')
         .get(facultyController.displayProfile)
         .post(facultyController.updateProfile)
+
+    app.route('/faculty/reg-courses')
+        .get(facultyController.viewRegCourses)
 
 
 

@@ -21,7 +21,7 @@ class FacultyHomePage extends React.Component {
     handleClick(page) {
         switch (page) {
             case 'pending':
-                this.props.history.push('/student/pending-courses')
+                this.props.history.push('/faculty/reg-courses')
                 break
             case 'offered':
                 this.props.history.push('/faculty/courses')
@@ -94,14 +94,11 @@ class FacultyHomePage extends React.Component {
                         <div style={{ marginLeft: '5%', marginTop: '3%' }} onClick={() => this.handleClick('addCourse')}>
                             <MenuCard title='Add Course'/>
                         </div>
+                        <div style={{ marginTop: '3%', marginLeft: '3%' }} onClick={() => this.handleClick('pending')}>
+                            <MenuCard title='Approve/Drop Course' />
+                        </div>
                         <div style={{ marginTop: '3%', marginLeft: '3%' }} onClick={() => this.handleClick('offered')}>
                             <LongCard value={offeredCourses} title='Offered Courses'/>
-                        </div>
-                        <div style={{ marginTop: '3%', marginLeft: '3%' }} onClick={() => this.handleClick('pending')}>
-                            <LongCard value={pendingCourses} />
-                        </div>
-                        <div style={{ marginTop: '3%', marginLeft: '3%' }} onClick={() => this.handleClick('approved')}>
-                            <LongCard value={approvedCourses} />
                         </div>
                     </div>
 

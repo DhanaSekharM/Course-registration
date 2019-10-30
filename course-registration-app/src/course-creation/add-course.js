@@ -75,9 +75,6 @@ class AddCourse extends React.Component {
                     timeslotCopy[i].time = event.value
                 }
             }
-
-
-
             this.setState({
                 timeslot: timeslotCopy
             })
@@ -115,6 +112,7 @@ class AddCourse extends React.Component {
             name: this.state.courseDetails.name,
             type: this.state.courseDetails.type,
             semester: this.state.courseDetails.semester,
+            prerequisites: this.state.courseDetails.prerequisites
         }
         return await axios.post('/faculty/courses', body)
     }

@@ -32,6 +32,7 @@ class HomePage extends React.Component {
                 break
             case 'approved':
                 this.props.history.push('/student/approved-courses')
+                break
             case 'timetable':
                 this.props.history.push('/student/timetable')
         }
@@ -72,7 +73,7 @@ class HomePage extends React.Component {
                 this.updateState(res)
             })
         }
-
+        console.log(this.state.pendingCourses)
         var pendingCourses = {
             color: 'red',
             courses: this.state.pendingCourses.slice()

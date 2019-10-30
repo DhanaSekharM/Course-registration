@@ -145,6 +145,7 @@ class EditCourse extends React.Component {
                         .then((res) => {
                             console.log(res)
                             this.makeRequest()
+                            window.location.reload()
                         })
                         .catch((err) => {
                             console.log(err)

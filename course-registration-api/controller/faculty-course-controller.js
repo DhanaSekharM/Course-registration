@@ -53,8 +53,8 @@ exports.addCourse = (req, res) => {
     //         res.send(error)
     //     })
 
-    return sequelize.query(`INSERT INTO course VALUES('${req.body.id}', '${req.body.name}', '08:00:00', 
-                    '${req.body.type}', '${req.body.semester}', '${req.user.user}')`)
+    return sequelize.query(`INSERT INTO course VALUES('${req.body.id}', '${req.body.name}', 
+                    '${req.body.type}', '${req.body.semester}', '${req.user.user}', 'None')`)
         .then((out) => {
             res.send(JSON.stringify(out))
         })
@@ -109,7 +109,7 @@ exports.addTimeslot = (req, res) => {
 exports.dropCourse = (req, res) => {
     console.log('f5')
     body = req.body
-    sequelize.query(`DELETE FROM registration WHERE courseId='${body.courseId}' AND studentId='${body.studentId}'`)
+    sequelize.query(`UPDATE registration SET status = 'dropped' WHERE courseId = '${body.courseId}' AND studentId = '${body.studentId}'`)
         .then((out) => {
             res.send(JSON.stringify(out))
         })
@@ -140,4 +140,19 @@ exports.previewCourse = (req, res) => {
                     res.send(err)
                 })
         })
+}
+
+exports.viewRegCourses = (req, res) => {
+
+    sequelize.query(`SELECT student.*, course.name AS cname, course.id AS cid, registration.status FROM student INNER JOIN registration INNER JOIN course 
+                    ON student.id = registration.studentId AND course.id = registration.courseId 
+                    WHERE facultyId = '${req.user.user}'`, { type: sequelize.QueryTypes.SELECT })
+        .then((courses) => {
+            res.send(JSON.stringify(courses))
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+
+
 }

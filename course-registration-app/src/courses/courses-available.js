@@ -32,12 +32,13 @@ function twoCards(course1, course2, clickHandler) {
 function oneCard(course, clickHandler) {
     return (
         <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
-            <CourseCard value={course} 
+        <CourseCard
             value={course}
             onApplyClick={() => clickHandler('apply', course.id)} onViewClick={() => clickHandler('view')}
             button1='Apply'
-            button2='View'/>
-        </div>
+            button2='View'
+        />
+    </div>
     )
 }
 
@@ -50,6 +51,7 @@ class Get extends React.Component {
             registeredCourses: [],
             requested: false,
         }
+        this.clickHandler = this.clickHandler.bind(this)
     }
 
     async makeRequest() {
@@ -111,7 +113,7 @@ class Get extends React.Component {
 
         for (let i = this.state.availableCourses.length - 1; i >= 0; i = i - 2) {
             if (i == 0) {
-                cards.push(oneCard(courses[i]), this.clickHandler)
+                cards.push(oneCard(courses[i], this.clickHandler))
             } else {
                 cards.push(twoCards(courses[i], courses[i - 1], this.clickHandler))
             }

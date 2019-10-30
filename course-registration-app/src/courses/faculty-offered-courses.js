@@ -97,7 +97,7 @@ class FacultyOfferedCourses extends React.Component {
 
         for (let i = this.state.offeredCourses.length - 1; i >= 0; i = i - 2) {
             if (i == 0) {
-                cards.push(oneCard(courses[i]), this.clickHandler)
+                cards.push(oneCard(courses[i], this.clickHandler))
             } else {
                 cards.push(twoCards(courses[i], courses[i - 1], this.clickHandler))
             }

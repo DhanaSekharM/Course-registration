@@ -6,7 +6,7 @@ class MenuCard extends React.Component {
     render() {
         let title = 'Time Table'
         if(typeof(this.props.title) != 'undefined') {
-            title = 'Add Course'
+            title = this.props.title
         }
         return (
             <div className={styles.smallCard}>

@@ -13,9 +13,6 @@ Course.init({
     name: {
         type: Sequelize.STRING
     },
-    timeslot: {
-        type: Sequelize.TIME,
-    },
     type: {
         type: Sequelize.STRING,
     },
@@ -24,6 +21,21 @@ Course.init({
     },
     facultyId: {
         type: Sequelize.STRING,
+    },
+    prerequisites: {
+        type: Sequelize.STRING
+    },
+    credit: {
+        type: Sequelize.INTEGER,
+    },
+    lecture: {
+        type: Sequelize.INTEGER
+    },
+    tutorial: {
+        type: Sequelize.INTEGER
+    },
+    practical: {
+        type: Sequelize.INTEGER
     }
 }, {
     sequelize,
@@ -37,7 +49,13 @@ Faculty.init({
         type: Sequelize.STRING,
         primaryKey: true,
     },
-    name: {
+    firstName: {
+        type: Sequelize.STRING,
+    },
+    middleName: {
+        type: Sequelize.STRING,
+    },
+    lastName: {
         type: Sequelize.STRING,
     },
     dept: {
@@ -45,7 +63,17 @@ Faculty.init({
     },
     email: {
         type: Sequelize.STRING,
+    },
+    sex: {
+        type: Sequelize.STRING,
+    },
+    phone: {
+        type: Sequelize.STRING,
+    },
+    address: {
+        type: Sequelize.STRING,
     }
+
 }, {
     sequelize,
     modelName: 'faculty',
@@ -82,6 +110,15 @@ Student.init({
     sex: {
         type: Sequelize.STRING,
     },
+    address: {
+        type: Sequelize.STRING,
+    },
+    batch: {
+        type: Sequelize.STRING,
+    },
+    phone: {
+        type: Sequelize.STRING,
+    }
 }, {
     sequelize,
     modelName: 'student',
@@ -185,7 +222,7 @@ let sync = async () => {
     await Registration.sync({ force: false })
     await StudentLogin.sync({force: false})
     await FacultyLogin.sync({force: false})
-    await Timeslot.sync({force: true})
+    await Timeslot.sync({force: false})
 
     // for(let i = 1; i <= 10; i++) {
     //     FacultyLogin.create({

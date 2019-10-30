@@ -12,41 +12,37 @@ import Container from '@material-ui/core/Container';
 import styles from './css/login.module.css'
 import Grid from '@material-ui/core/Grid';
 
-class LoginPage extends React.Component {
+class ForgotPassword extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: '',
             password: '',
+            confirmPassword: '',
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(event, type) {
-        if (type.localeCompare("username") === 0) { this.setState({ username: event.target.value }) }
-        else { this.setState({ password: event.target.value }) }
+        if (type.localeCompare("password") === 0) { this.setState({ password: event.target.value }) }
+        else { this.setState({ confirmPassword: event.target.value }) }
         console.log(this.state)
     }
 
     handleSubmit(event) {
-        let axiosInstance = axios.create({
-            baseURL: 'http://127.0.0.1:3001'
-        })
         event.preventDefault();
-        axios.post('/login', {
-            username: this.state.username,
-            password: this.state.password,
-        })
-            .then((response) => {
-                console.log(response);
-                if (response.data.type == 'student') {
-                    this.props.history.push('/home')
-                } else {
-                    this.props.history.push('/faculty/home')
-                }
+        // axios.post('/login', {
+        //     password: this.state.password,
+        // })
+        //     .then((response) => {
+        //         console.log(response);
+        //         if (response.data.type == 'student') {
+        //             this.props.history.push('/home')
+        //         } else {
+        //             this.props.history.push('/faculty/home')
+        //         }
 
-            })
+        //     })
     }
 
     render() {
@@ -58,20 +54,20 @@ class LoginPage extends React.Component {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Forgot Password
             </Typography>
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Login Id"
-                        name="email"
-                        autoComplete="email"
+                        id="password"
+                        label="New password"
+                        type="password"
+                        name="password"
                         autoFocus
-                        value={this.state.username}
-                        onChange={(event) => { this.handleChange(event, 'username') }}
+                        value={this.state.password}
+                        onChange={(event) => { this.handleChange(event, 'password') }}
 
                     />
                     <TextField
@@ -79,13 +75,12 @@ class LoginPage extends React.Component {
                         margin="normal"
                         required
                         fullWidth
-                        name="password"
-                        label="Password"
+                        name="Confirmpassword"
+                        label="Confirm Password"
                         type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        value={this.state.password}
-                        onChange={(event) => { this.handleChange(event, 'password') }}
+                        id="confirmPassword"
+                        value={this.state.confirmPassword}
+                        onChange={(event) => { this.handleChange(event, 'confirmPassword') }}
                     />
                     <Button
                         type="submit"
@@ -95,9 +90,8 @@ class LoginPage extends React.Component {
                         className={styles.submit}
                         onClick={this.handleSubmit}
                     >
-                        Sign In
+                        Change Password
               </Button>
-                    
                 </div>
             </Container>
         );
@@ -105,4 +99,4 @@ class LoginPage extends React.Component {
 
 }
 
-export default LoginPage
+export default ForgotPassword
