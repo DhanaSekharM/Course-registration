@@ -11,14 +11,14 @@ function twoCards(course1, course2, clickHandler) {
             <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
                 <CourseCard
                     value={course1}
-                    onApplyClick={() => clickHandler('delete', course1.id)} onViewClick={() => clickHandler('view')}
+                    onApplyClick={() => clickHandler('delete', course1.id)} onViewClick={() => clickHandler('view', course1.id, course1)}
                     button1='Delete'
                     button2='View'
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
                 <CourseCard value={course2}
-                    onApplyClick={() => clickHandler('delete', course2.id)} onViewClick={() => clickHandler('view')}
+                    onApplyClick={() => clickHandler('delete', course2.id)} onViewClick={() => clickHandler('view', course2.id, course2)}
                     button1='Delete'
                     button2='View'
                 />
@@ -32,7 +32,7 @@ function oneCard(course, clickHandler) {
     return (
         <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
             <CourseCard value={course}
-                onApplyClick={() => clickHandler('delete', course.id)} onViewClick={() => clickHandler('view')}
+                onApplyClick={() => clickHandler('delete', course.id)} onViewClick={() => clickHandler('view', course.id, course)}
                 button1='Delete'
                 button2='View'
             />
@@ -64,12 +64,17 @@ class PendingCourses extends React.Component {
         })
     }
 
-    clickHandler(type, courseId) {
+    clickHandler(type, courseId, course) {
         if (type == 'delete') {
             axios.delete('/student/courses/'+courseId)
                 .then((res) => {
                     window.location.reload()
                 })
+        } else {
+            let plan = course.plan
+            console.log(plan)
+            var win = window.open(plan, '_blank');
+            win.focus();
         }
         // alert('clicked')
     }

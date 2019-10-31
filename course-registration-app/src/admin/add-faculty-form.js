@@ -28,7 +28,7 @@ class Profile extends React.Component {
                             <span className={styles.profileName}> Fname </span>
                         </h2>
                         <img src={require("./../assets/profile-placeholder.jpeg")} style={{ maxHeight: '360px', maxWidth: '360px' }} />
-                        <br /> <button className={styles.button}> Upload </button>{" "}
+                        {/* <br /> <button className={styles.button}> Upload </button>{" "} */}
                     </div>
                     <div className={styles.formHeading}>
                         <div>

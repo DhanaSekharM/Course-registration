@@ -43,7 +43,7 @@ class Profile extends React.Component {
                             <span className={styles.profileName}> {this.props.value.userDetails.firstName} </span>
                         </h2>
                         <img src={imgUrl} style={{ maxHeight: '360px', maxWidth: '360px' }} />
-                        <br /> <input type='file' onChange={(event) => this.props.handleUpload(event)} />
+                        {/* <br /> <input type='file' onChange={(event) => this.props.handleUpload(event)} /> */}
                     </div>
                     <div className={styles.formHeading}>
                         <div>

@@ -34,18 +34,18 @@ class Profile extends React.Component {
 
         // console.log(this.props.value)
 
-        if (this.props.value.userDetails.blob != '') {
-            // console.log(this.props.value.userDetails.blob)
-            // var arrayBufferView = new Uint8Array(this.props.value.userDetails.blob);
-            // var blob = new Blob([arrayBufferView], { type: "image/png" });
-            // var urlCreator = window.URL || window.webkitURL;
-            // imgUrl = urlCreator.createObjectURL( blob );
-            // console.log(imgUrl)
-            var image = btoa(String.fromCharCode.apply(null, new Uint8Array(this.props.value.userDetails.blob)))
-            imgUrl = 'data:image/png;base64,' + image
-            console.log(imgUrl)
+        // if (this.props.value.userDetails.blob != '') {
+        //     // console.log(this.props.value.userDetails.blob)
+        //     // var arrayBufferView = new Uint8Array(this.props.value.userDetails.blob);
+        //     // var blob = new Blob([arrayBufferView], { type: "image/png" });
+        //     // var urlCreator = window.URL || window.webkitURL;
+        //     // imgUrl = urlCreator.createObjectURL( blob );
+        //     // console.log(imgUrl)
+        //     var image = btoa(String.fromCharCode.apply(null, new Uint8Array(this.props.value.userDetails.blob)))
+        //     imgUrl = 'data:image/png;base64,' + image
+        //     console.log(imgUrl)
 
-        }
+        // }
 
         return (
             <div>
@@ -56,7 +56,7 @@ class Profile extends React.Component {
                             <span className={styles.profileName}> {this.props.value.userDetails.firstName} </span>
                         </h2>
                         <img src={imgUrl} style={{ maxHeight: '360px', maxWidth: '360px' }} />
-                        <br /> <input type='file' onChange={(event) => this.props.onUpload(event)} />
+                        {/* <br /> <input type='file' onChange={(event) => this.props.onUpload(event)} /> */}
                     </div>
                     <div className={styles.formHeading}>
                         <div>

@@ -12,28 +12,25 @@ function threeCards(course1, course2, course3, clickHandler, timeslots) {
                 <CourseCard
                     value={course1}
                     timeslots={timeslots}
-                    onApplyClick={() => clickHandler('delete', course1.id)} onViewClick={() => clickHandler('view')}
-                    button1='Delete'
+                    onApplyClick={() => clickHandler('apply', course1.id)} onViewClick={() => clickHandler('view', course1.id, course1)}
+                    button1='Apply'
                     button2='View'
-                    approved='true'
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
                 <CourseCard value={course2}
                     timeslots={timeslots}
-                    onApplyClick={() => clickHandler('delete', course2.id)} onViewClick={() => clickHandler('view')}
-                    button1='Delete'
+                    onApplyClick={() => clickHandler('apply', course2.id)} onViewClick={() => clickHandler('view', course2.id, course2)}
+                    button1='Apply'
                     button2='View'
-                    approved='true'
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
                 <CourseCard value={course2}
                     timeslots={timeslots}
-                    onApplyClick={() => clickHandler('delete', course3.id)} onViewClick={() => clickHandler('view')}
-                    button1='Delete'
+                    onApplyClick={() => clickHandler('apply', course3.id)} onViewClick={() => clickHandler('view', course3.id, course3)}
+                    button1='Apply'
                     button2='View'
-                    approved='true'
                 />
             </div>
 
@@ -49,7 +46,7 @@ function twoCards(course1, course2, clickHandler, timeslots) {
                 <CourseCard
                     timeslots={timeslots}
                     value={course1} onApplyClick={() => clickHandler('apply', course1.id)}
-                    onViewClick={() => clickHandler('view')}
+                    onViewClick={() => clickHandler('view', course1.id, course1)}
                     button1='Apply'
                     button2='View'
                 />
@@ -58,7 +55,7 @@ function twoCards(course1, course2, clickHandler, timeslots) {
                 <CourseCard
                     timeslots={timeslots}
                     value={course2}
-                    onApplyClick={() => clickHandler('apply', course2.id)} onViewClick={() => clickHandler('view')}
+                    onApplyClick={() => clickHandler('apply', course2.id)} onViewClick={() => clickHandler('view', course2.id, course2)}
                     button1='Apply'
                     button2='View'
                 />
@@ -74,7 +71,7 @@ function oneCard(course, clickHandler, timeslots) {
             <CourseCard
                 value={course}
                 timeslots={timeslots}
-                onApplyClick={() => clickHandler('apply', course.id)} onViewClick={() => clickHandler('view')}
+                onApplyClick={() => clickHandler('apply', course.id)} onViewClick={() => clickHandler('view', course.id, course)}
                 button1='Apply'
                 button2='View'
             />
@@ -119,12 +116,18 @@ class Get extends React.Component {
         })
     }
 
-    clickHandler(type, courseId) {
+    clickHandler(type, courseId, course) {
         if (type == 'apply') {
             axios.post('/student/courses/' + courseId)
                 .then((res) => {
                     window.location.reload()
                 })
+        } else {
+            let plan = course.plan
+            console.log(plan)
+            var win = window.open(plan, '_blank');
+            win.focus();
+
         }
     }
 

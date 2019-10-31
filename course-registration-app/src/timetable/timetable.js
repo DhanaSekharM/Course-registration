@@ -165,7 +165,7 @@ class TimeTableApp extends Component {
               renderHour={this.renderHour}
               renderEvent={this.renderEvent}
               hoursInterval={[8, 17]}
-              timeLabel="Time :)"
+              timeLabel="Time"
             />
             </div>
             
