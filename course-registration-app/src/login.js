@@ -40,6 +40,9 @@ class LoginPage extends React.Component {
         })
             .then((response) => {
                 console.log(response);
+                if(response.data.type == 'admin') {
+                    this.props.history.push('/admin')
+                } else
                 if (response.data.type == 'student') {
                     this.props.history.push('/home')
                 } else {

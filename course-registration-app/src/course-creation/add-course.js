@@ -142,6 +142,25 @@ class AddCourse extends React.Component {
         return await axios.post('/faculty/timeslot', timeslots)
     }
 
+    async getTimeslots() {
+        // alert('h')
+        return await axios.get('/faculty/allTimeslots')
+    }
+
+    detectCollision(allTimeslots, timeslots) {
+        let collisions = []
+        for (let i = 0; i < timeslots.length; i++) {
+            for (let j = 0; j < allTimeslots.length; j++) {
+                
+                if ( (this.state.courseDetails.semester == allTimeslots[j].semester) &&
+                     (timeslots[i].day + ' ' + timeslots[i].time) == allTimeslots[j].slot) {
+                    collisions.push(allTimeslots[j])
+                }
+            }
+        }
+        return collisions
+    }
+
     handleClick(event, type) {
 
         if (type == 'time') {
@@ -157,14 +176,34 @@ class AddCourse extends React.Component {
             })
         }
 
-        if(type == 'save') {
+        if (type == 'save') {
+            console.log('121212')
             this.createCourse()
                 .then((res) => {
                     console.log(res)
-                    this.addTimeslots()
-                        .then((res) => {
-                            console.log(res)
-                            this.makeRequest()
+                    this.getTimeslots()
+                        .then((out) => {
+                            let collisions = this.detectCollision(out.data, this.state.timeslot)
+
+                            if (collisions.length != 0) {
+                                let message = 'Course has collision with \n'
+                                for (let i = 0; i < collisions.length; i++) {
+                                    message += collisions[i].courseId + ' at ' + collisions[i].slot + '\n'
+                                }
+                                alert(message)
+                            } else {
+                                this.addTimeslots()
+                                    .then((res) => {
+                                        // alert('hi')
+                                        console.log(res)
+                                        this.makeRequest()
+                                            .then((out) => { })
+                                        window.location.reload()
+                                    })
+                                    .catch((err) => {
+                                        console.log(err)
+                                    })
+                            }
                         })
                         .catch((err) => {
                             console.log(err)

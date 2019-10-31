@@ -188,3 +188,13 @@ exports.editCourse = (req, res) => {
         })
 
 }
+
+exports.allTimeslots = (req, res) => {
+    sequelize.query('select course.*, timeslot.*, faculty.dept from timeslot inner join course inner join faculty on timeslot.courseId = course.id and faculty.id = course.facultyId', { type: sequelize.QueryTypes.SELECT })
+        .then((out) => {
+            res.send(JSON.stringify(out))
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+} 

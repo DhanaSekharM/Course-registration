@@ -17,6 +17,10 @@ import AddCourse from './course-creation/add-course'
 import EditCourse from './courses/faculty-edit-course'
 import CourseDiv from './courses/course-div'
 import ForgotPassword from './forgot-password'
+import AdminHomePage from './admin/admin-home'
+import AdminStudentProfile from './admin/add-student-profile'
+import AdminFacultyProfile from './admin/add-faculty-profile'
+import Check from './admin/check'
 
 const routing = (
     <Router>
@@ -35,6 +39,9 @@ const routing = (
             <Route path = '/faculty/edit-course' component = {EditCourse}/>
             <Route path = '/faculty/reg-courses' component = {CourseDiv}/>
             <Route path = '/forgot-password' component = {ForgotPassword}/>
+            <Route exact path = '/admin' component = {AdminHomePage}/>
+            <Route path = '/admin/student' component = {AdminStudentProfile}/>
+            <Route path = '/admin/faculty' component = {AdminFacultyProfile}/>
             
         </div>
     </Router>

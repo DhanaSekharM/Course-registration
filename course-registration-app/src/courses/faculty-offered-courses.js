@@ -10,26 +10,23 @@ function threeCards(course1, course2, course3, clickHandler) {
             <div style={{ width: '400px', margin: '40px 40px 40px 50px' }}>
                 <CourseCard
                     value={course1}
-                    onApplyClick={() => clickHandler('delete', course1.id)} onViewClick={() => clickHandler('view')}
-                    button1='Delete'
+                    onApplyClick={() => clickHandler('edit', course1.id)} onViewClick={() => clickHandler('view')}
+                    button1='Edit'
                     button2='View'
-                    approved='true'
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
                 <CourseCard value={course2}
-                    onApplyClick={() => clickHandler('delete', course2.id)} onViewClick={() => clickHandler('view')}
-                    button1='Delete'
+                    onApplyClick={() => clickHandler('edit', course2.id)} onViewClick={() => clickHandler('view')}
+                    button1='Edit'
                     button2='View'
-                    approved='true'
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
-                <CourseCard value={course2}
-                    onApplyClick={() => clickHandler('delete', course3.id)} onViewClick={() => clickHandler('view')}
-                    button1='Delete'
+                <CourseCard value={course3}
+                    onApplyClick={() => clickHandler('edit', course3.id)} onViewClick={() => clickHandler('view')}
+                    button1='Edit'
                     button2='View'
-                    approved='true'
                 />
             </div>
             

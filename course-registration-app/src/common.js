@@ -47,7 +47,7 @@ class Navigator extends React.Component {
         return (
             <div style={{ marginTop: '-15px' }}>
                 <ul className={styles.navList}>
-                    <li className={styles.menuLi} onClick={() => this.handleNavClick('available')}>Menu</li>
+                    <li className={styles.menuLi}>Menu</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('timetable')}>Timetable</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('available')}>Available Courses</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('pending')}>Pending Courses</li>

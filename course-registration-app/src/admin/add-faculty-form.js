@@ -1,12 +1,8 @@
 import React from "react";
 import styles from "./../css/profile.module.css";
 import { RadioGroup, RadioButton } from 'react-radio-buttons'
+import Dropdown from 'react-dropdown'
 
-function create_blob(file, callback) {
-    var reader = new FileReader();
-    reader.onload = function() { callback(reader.result) };
-    reader.readAsDataURL(file);
-}
 
 class Profile extends React.Component {
     render() {
@@ -21,22 +17,7 @@ class Profile extends React.Component {
         } else {
             femaleCheck = true
         }
-        let imgUrl = require('./../assets/profile-placeholder.jpeg')
 
-
-        if (this.props.value.imgUrl != null) {
-            imgUrl = this.props.value.imgUrl
-            create_blob(this.props.value.file, (blob) => {
-                console.log(blob)
-                this.props.onBlob(blob)
-            })           
-        }
-
-        // console.log(this.props.value)
-
-        // if(typeof(this.props.value.userDetails.blob) != 'undefined') {
-        //     imgUrl = this.props.value.userDetails.blob
-        // }
 
         return (
             <div>
@@ -46,8 +27,8 @@ class Profile extends React.Component {
                             Profile:
                             <span className={styles.profileName}> Fname </span>
                         </h2>
-                        <img src={imgUrl} style={{ maxHeight: '360px', maxWidth: '360px' }} />
-                        <br /> <input type='file' onChange={(event) => this.props.onUpload(event)}/>
+                        <img src={require("./../assets/profile-placeholder.jpeg")} style={{ maxHeight: '360px', maxWidth: '360px' }} />
+                        <br /> <button className={styles.button}> Upload </button>{" "}
                     </div>
                     <div className={styles.formHeading}>
                         <div>
@@ -69,10 +50,10 @@ class Profile extends React.Component {
                                     name="id"
                                     style={{ float: "right", width: "700px" }}
                                     type="text"
-                                    placeholder="fname@email.com"
+                                    placeholder="eg 171095"
                                     className={styles.profileInput}
                                     value={this.props.value.userDetails.id}
-                                    disabled={true}
+                                    disabled={!this.props.value.inEditMode}
                                     onChange={(event) => this.props.onChange(event)}
                                 />
                             </div>
@@ -91,10 +72,10 @@ class Profile extends React.Component {
                                     name="password"
                                     style={{ float: "right", width: "700px" }}
                                     type="password"
-                                    placeholder="fname@email.com"
+                                    placeholder=""
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
-                                    value=''
+                                    value={this.props.value.password}
                                     onChange={(event) => this.props.onChange(event)}
                                 />
                             </div>{" "}
@@ -112,7 +93,7 @@ class Profile extends React.Component {
                                     name="confirmPassword"
                                     style={{ float: "right", width: "700px" }}
                                     type="password"
-                                    placeholder="fname@email.com"
+                                    placeholder=""
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
                                     value=''
@@ -140,7 +121,7 @@ class Profile extends React.Component {
                                     name="firstName"
                                     style={{ float: "right", width: "700px" }}
                                     type="text"
-                                    placeholder="fname@email.com"
+                                    placeholder="eg. fname"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
                                     value={this.props.value.userDetails.firstName}
@@ -162,7 +143,7 @@ class Profile extends React.Component {
                                     name="middleName"
                                     style={{ float: "right", width: "700px" }}
                                     type="text"
-                                    placeholder="fname@email.com"
+                                    placeholder="eg. mname"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
                                     value={this.props.value.userDetails.middleName}
@@ -184,7 +165,7 @@ class Profile extends React.Component {
                                     name="lastName"
                                     style={{ float: "right", width: "700px" }}
                                     type="text"
-                                    placeholder="fname@email.com"
+                                    placeholder="eg. lname"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
                                     value={this.props.value.userDetails.lastName}
@@ -222,7 +203,7 @@ class Profile extends React.Component {
                                     name="email"
                                     style={{ float: "right", width: "700px" }}
                                     type="text"
-                                    placeholder="fname@email.com"
+                                    placeholder="eg. fname@email.com"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
                                     value={this.props.value.userDetails.email}
@@ -238,10 +219,10 @@ class Profile extends React.Component {
                             >
                                 <label className={styles.fieldLabel} style={{ whiteSpace: "nowrap", float: "left", marginRight: "70px" }}>Phone Number</label>
                                 <input
-                                    name="phoneNumber"
+                                    name="phone"
                                     style={{ float: "right", width: "700px" }}
                                     type="text"
-                                    placeholder="fname@email.com"
+                                    placeholder="eg. 9807654321"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
                                     value={this.props.value.userDetails.phoneNumber}
@@ -261,8 +242,8 @@ class Profile extends React.Component {
                                     style={{ float: "right", width: "700px" }}
                                     value="hi"
                                     type="text"
-                                    placeholder="fname@email.com"
-                                    disabled={true}
+                                    placeholder="eg. CSE"
+                                    disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
                                     value={this.props.value.userDetails.department}
                                     onChange={(event) => this.props.onChange(event)}

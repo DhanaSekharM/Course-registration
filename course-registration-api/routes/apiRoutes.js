@@ -1,5 +1,6 @@
 const controller = require('../controller/student-course-controller')
 const facultyController = require('../controller/faculty-course-controller')
+const adminController = require('../controller/admin-controller')
 const passport = require('passport')
 
 // module.exports = (app) => {
@@ -26,6 +27,10 @@ module.exports = (app) => {
                 if (!id) {
                     id = req.user.facultyId
                     type = 'faculty'
+                }
+                if (req.user.id == 'admin') {
+                    id = req.user.id,
+                        type = 'admin'
                 }
                 res.send({
                     status: 'success',
@@ -64,7 +69,7 @@ module.exports = (app) => {
     app.route('/faculty/courses')
         .get(facultyController.displayCourse)
         .post(facultyController.addCourse)
-    
+
     app.route('/faculty/courses/:id')
         .get(facultyController.previewCourse)
 
@@ -77,6 +82,15 @@ module.exports = (app) => {
 
     app.route('/faculty/edit-course')
         .post(facultyController.editCourse)
+
+    app.route('/admin/student')
+        .post(adminController.createStudent)
+
+    app.route('/admin/faculty')
+        .post(adminController.createFaculty)
+
+    app.route('/faculty/allTimeslots')
+        .get(facultyController.allTimeslots)
 
 
 

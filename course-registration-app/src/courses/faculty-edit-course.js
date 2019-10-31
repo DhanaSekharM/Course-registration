@@ -114,7 +114,7 @@ class EditCourse extends React.Component {
 
     async addTimeslots() {
         let timeslots = []
-        for(let i = 0; i < this.state.timeslot.length; i++) {
+        for (let i = 0; i < this.state.timeslot.length; i++) {
             let timeslot = {
                 id: this.state.courseDetails.code,
                 timeslot: this.state.timeslot[i].day + ' ' + this.state.timeslot[i].time
@@ -127,6 +127,26 @@ class EditCourse extends React.Component {
         }
 
         return await axios.post('/faculty/timeslot', timeslots)
+    }
+
+    async getTimeslots() {
+        alert('h')
+        return await axios.get('/faculty/allTimeslots')
+    }
+
+    detectCollision(allTimeslots, timeslots) {
+        let collisions = []
+        for (let i = 0; i < timeslots.length; i++) {
+            for (let j = 0; j < allTimeslots.length; j++) {
+
+                if ((this.state.courseDetails.semester == allTimeslots[j].semester) &&
+                    (timeslots[i].day + ' ' + timeslots[i].time) == allTimeslots[j].slot &&
+                    (this.state.courseDetails.code != allTimeslots[j].id)) {
+                    collisions.push(allTimeslots[j])
+                }
+            }
+        }
+        return collisions
     }
 
     handleClick(event, type) {
@@ -144,18 +164,34 @@ class EditCourse extends React.Component {
             })
         }
 
-        if(type == 'save') {
+        if (type == 'save') {
             console.log('121212')
             this.createCourse()
                 .then((res) => {
                     console.log(res)
-                    this.addTimeslots()
-                        .then((res) => {
-                            // alert('hi')
-                            console.log(res)
-                            this.makeRequest()
-                                .then((out) => {})
-                            window.location.reload()
+                    this.getTimeslots()
+                        .then((out) => {
+                            let collisions = this.detectCollision(out.data, this.state.timeslot)
+
+                            if (collisions.length != 0) {
+                                let message = ''
+                                for (let i = 0; i < collisions.length; i++) {
+                                    message += collisions[i] + ', '
+                                }
+                                alert(message)
+                            } else {
+                                this.addTimeslots()
+                                    .then((res) => {
+                                        // alert('hi')
+                                        console.log(res)
+                                        this.makeRequest()
+                                            .then((out) => { })
+                                        window.location.reload()
+                                    })
+                                    .catch((err) => {
+                                        console.log(err)
+                                    })
+                            }
                         })
                         .catch((err) => {
                             console.log(err)
@@ -167,16 +203,16 @@ class EditCourse extends React.Component {
                 })
         }
 
-        if(type == 'reset') {
+        if (type == 'reset') {
             window.location.reload()
         }
 
     }
 
     async makeRequest() {
-        let res = await axios.get('/faculty/courses/'+this.props.location.state.courseId)
+        let res = await axios.get('/faculty/courses/' + this.props.location.state.courseId)
         let timeslots = []
-        for(let i = 0; i < res.data.timeslots.length; i++) {
+        for (let i = 0; i < res.data.timeslots.length; i++) {
             let timeslot = {
                 day: res.data.timeslots[i].slot.split(' ')[0],
                 time: res.data.timeslots[i].slot.split(' ')[1],
@@ -204,11 +240,11 @@ class EditCourse extends React.Component {
     render() {
         document.body.style.backgroundColor = 'whitesmoke'
 
-        if(!this.state.requested) {
+        if (!this.state.requested) {
             this.makeRequest()
         }
 
-        if(this.state.requested) {
+        if (this.state.requested) {
             return (
                 <div className={styles.body}>
                     <Header title='Profile' value={this.props} />
@@ -217,18 +253,18 @@ class EditCourse extends React.Component {
                         <div className={styles.container} style={{ marginLeft: '10px', marginTop: '10px' }}>
                             <CreateCourseForm value={this.state} onChange={this.handleChange} onClick={this.handleClick} />
                         </div>
-    
+
                     </div>
                 </div>
             )
         } else {
-            return(
+            return (
                 <div>
                     Loading...
                 </div>
             )
         }
-        
+
 
 
     }
