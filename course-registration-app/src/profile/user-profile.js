@@ -40,7 +40,7 @@ class Profile extends React.Component {
                     <div>
                         <h2 className={styles.profileLabel}>
                             Profile:
-                            <span className={styles.profileName}> Fname </span>
+                            <span className={styles.profileName}> {this.props.value.userDetails.firstName} </span>
                         </h2>
                         <img src={imgUrl} style={{ maxHeight: '360px', maxWidth: '360px' }} />
                         <br /> <input type='file' onChange={(event) => this.props.handleUpload(event)} />
@@ -94,27 +94,6 @@ class Profile extends React.Component {
                                     onChange={(event) => this.props.onChange(event)}
                                 />
                             </div>{" "}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    margin: "15px"
-                                }}
-                            >
-                                <label className={styles.fieldLabel} style={{ whiteSpace: "nowrap", marginRight: "40px" }}>
-                                    Confirm Password{" "}
-                                </label>{" "}
-                                <input
-                                    name="confirmPassword"
-                                    style={{ float: "right", width: "700px" }}
-                                    type="password"
-                                    placeholder="fname@email.com"
-                                    disabled={!this.props.value.inEditMode}
-                                    className={styles.profileInput}
-                                    value=''
-                                    onChange={(event) => this.props.onChange(event)}
-                                />
-                            </div>
                         </form>{" "}
                         <hr />
                         <div style={{ marginTop: '20px' }}>

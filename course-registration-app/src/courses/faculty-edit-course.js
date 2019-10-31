@@ -19,7 +19,8 @@ class EditCourse extends React.Component {
                 credit: '',
                 lecture: '',
                 tutorial: '',
-                practical: ''
+                practical: '',
+                plan: ''
             },
             timeslot: [
                 {
@@ -107,7 +108,8 @@ class EditCourse extends React.Component {
             lecture: this.state.courseDetails.lecture,
             tutorial: this.state.courseDetails.tutorial,
             practical: this.state.courseDetails.practical,
-            credit: this.state.courseDetails.credit
+            credit: this.state.courseDetails.credit,
+            plan: this.state.courseDetails.plan
         }
         return await axios.post('/faculty/edit-course', body)
     }
@@ -130,7 +132,6 @@ class EditCourse extends React.Component {
     }
 
     async getTimeslots() {
-        alert('h')
         return await axios.get('/faculty/allTimeslots')
     }
 
@@ -186,6 +187,8 @@ class EditCourse extends React.Component {
                                         console.log(res)
                                         this.makeRequest()
                                             .then((out) => { })
+                                            alert('Succesfully edited course')
+                                            this.props.history.push('/faculty/home')
                                         window.location.reload()
                                     })
                                     .catch((err) => {
@@ -230,7 +233,8 @@ class EditCourse extends React.Component {
                 credit: res.data.courseDetails.credit,
                 lecture: res.data.courseDetails.lecture,
                 tutorial: res.data.courseDetails.tutorial,
-                practical: res.data.courseDetails.practical
+                practical: res.data.courseDetails.practical,
+                plan: res.data.courseDetails.plan
             },
             timeslot: timeslots.slice(),
             requested: true

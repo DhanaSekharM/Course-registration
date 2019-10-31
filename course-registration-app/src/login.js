@@ -45,9 +45,12 @@ class LoginPage extends React.Component {
                 } else
                 if (response.data.type == 'student') {
                     this.props.history.push('/home')
-                } else {
+                } else if(response.data.type == 'faculty'){
                     this.props.history.push('/faculty/home')
                 }
+                // if(typeof(this.response.data.type) == 'undefined') {
+                //     alert('d')
+                // }
 
             })
     }

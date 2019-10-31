@@ -144,6 +144,28 @@ class CreateCourseFrom extends React.Component {
                                     margin: "15px"
                                 }}
                             >
+                                <label className={styles.fieldLabel} style={{ float: "left", marginRight: "110px" }}>
+                                    {" "}
+                                    Course Plan{" "}
+                                </label>
+                                <input
+                                    name="plan"
+                                    style={{ float: "right", width: "700px" }}
+                                    type="url"
+                                    placeholder="eg google drive link"
+                                    disabled={!this.props.value.inEditMode}
+                                    className={styles.profileInput}
+                                    value={this.props.value.courseDetails.plan}
+                                    onChange={(event) => this.props.onChange(event)}
+                                />
+                            </div>{" "}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    margin: "15px"
+                                }}
+                            >
                                 <label className={styles.fieldLabel} style={{ marginRight: "170px" }}>
                                     {" "}
                                     Credits{" "}

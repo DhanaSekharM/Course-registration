@@ -198,7 +198,9 @@ class AddCourse extends React.Component {
                                         console.log(res)
                                         this.makeRequest()
                                             .then((out) => { })
-                                        window.location.reload()
+                                            alert('Succesfully added course')
+                                            this.props.history.push('/faculty/home')
+                                        // window.location.reload()
                                     })
                                     .catch((err) => {
                                         console.log(err)

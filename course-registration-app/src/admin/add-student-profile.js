@@ -130,7 +130,8 @@ class AdminStudentProfile extends React.Component {
         switch (type) {
             case 'Save':
                 this.updateProfile().then((res) => {
-                    window.location.reload()
+                    alert('Succesfully added student')
+                    this.props.history.push('/admin/home')
                 })
                 break
             case 'reset':

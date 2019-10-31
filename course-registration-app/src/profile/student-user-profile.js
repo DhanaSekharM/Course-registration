@@ -4,7 +4,7 @@ import { RadioGroup, RadioButton } from 'react-radio-buttons'
 
 function create_blob(file, callback) {
     var reader = new FileReader();
-    reader.onload = function() { callback(reader.result) };
+    reader.onload = function () { callback(reader.result) };
     reader.readAsDataURL(file);
 }
 
@@ -12,11 +12,11 @@ class Profile extends React.Component {
     render() {
 
 
-        let resetVisibility = this.props.value.inEditMode?'visible':'hidden'
-        let text = this.props.value.inEditMode?'Save':'Edit'
+        let resetVisibility = this.props.value.inEditMode ? 'visible' : 'hidden'
+        let text = this.props.value.inEditMode ? 'Save' : 'Edit'
 
         let maleCheck = false, femaleCheck = false
-        if(this.props.value.userDetails.sex == 'Male' || this.props.value.userDetails.sex == 'male') {
+        if (this.props.value.userDetails.sex == 'Male' || this.props.value.userDetails.sex == 'male') {
             maleCheck = true
         } else {
             femaleCheck = true
@@ -29,14 +29,23 @@ class Profile extends React.Component {
             create_blob(this.props.value.file, (blob) => {
                 console.log(blob)
                 this.props.onBlob(blob)
-            })           
+            })
         }
 
         // console.log(this.props.value)
 
-        // if(typeof(this.props.value.userDetails.blob) != 'undefined') {
-        //     imgUrl = this.props.value.userDetails.blob
-        // }
+        if (this.props.value.userDetails.blob != '') {
+            // console.log(this.props.value.userDetails.blob)
+            // var arrayBufferView = new Uint8Array(this.props.value.userDetails.blob);
+            // var blob = new Blob([arrayBufferView], { type: "image/png" });
+            // var urlCreator = window.URL || window.webkitURL;
+            // imgUrl = urlCreator.createObjectURL( blob );
+            // console.log(imgUrl)
+            var image = btoa(String.fromCharCode.apply(null, new Uint8Array(this.props.value.userDetails.blob)))
+            imgUrl = 'data:image/png;base64,' + image
+            console.log(imgUrl)
+
+        }
 
         return (
             <div>
@@ -44,10 +53,10 @@ class Profile extends React.Component {
                     <div>
                         <h2 className={styles.profileLabel}>
                             Profile:
-                            <span className={styles.profileName}> Fname </span>
+                            <span className={styles.profileName}> {this.props.value.userDetails.firstName} </span>
                         </h2>
                         <img src={imgUrl} style={{ maxHeight: '360px', maxWidth: '360px' }} />
-                        <br /> <input type='file' onChange={(event) => this.props.onUpload(event)}/>
+                        <br /> <input type='file' onChange={(event) => this.props.onUpload(event)} />
                     </div>
                     <div className={styles.formHeading}>
                         <div>
@@ -98,27 +107,6 @@ class Profile extends React.Component {
                                     onChange={(event) => this.props.onChange(event)}
                                 />
                             </div>{" "}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    margin: "15px"
-                                }}
-                            >
-                                <label className={styles.fieldLabel} style={{ whiteSpace: "nowrap", marginRight: "40px" }}>
-                                    Confirm Password{" "}
-                                </label>{" "}
-                                <input
-                                    name="confirmPassword"
-                                    style={{ float: "right", width: "700px" }}
-                                    type="password"
-                                    placeholder="fname@email.com"
-                                    disabled={!this.props.value.inEditMode}
-                                    className={styles.profileInput}
-                                    value=''
-                                    onChange={(event) => this.props.onChange(event)}
-                                />
-                            </div>
                         </form>{" "}
                         <hr />
                         <div style={{ marginTop: '20px' }}>
@@ -271,7 +259,7 @@ class Profile extends React.Component {
                         </form>
                         <div style={{ marginTop: '-40px' }}>
                             <button className={styles.button} onClick={() => this.props.onClick(text)}>{text}</button>
-                            <button className={styles.button} onClick={() => this.props.onClick('reset')} style={{backgroundColor: 'blue', visibility: resetVisibility }}>Reset</button>
+                            <button className={styles.button} onClick={() => this.props.onClick('reset')} style={{ backgroundColor: 'blue', visibility: resetVisibility }}>Reset</button>
                         </div>
                     </div>
                 </div>

@@ -52,7 +52,7 @@ class AdminFacultyProfile extends React.Component {
     handleChange(event) {
         const userDetailsCopy = JSON.parse(JSON.stringify(this.state.userDetails));
         console.log(event)
-        
+
         if (typeof (event.target) == 'undefined') {
             if (typeof (event.value) == 'undefined') {
                 userDetailsCopy.sex = event
@@ -88,7 +88,7 @@ class AdminFacultyProfile extends React.Component {
             lastName: this.state.userDetails.lastName,
             sex: this.state.userDetails.sex,
             dept: this.state.userDetails.department,
-            phone: this.state.userDetails.phone ,
+            phone: this.state.userDetails.phone,
 
         }
         return await axios.post('/admin/faculty', body)
@@ -99,7 +99,8 @@ class AdminFacultyProfile extends React.Component {
         switch (type) {
             case 'Save':
                 this.updateProfile().then((res) => {
-                    window.location.reload()
+                    alert('Succesfully added faculty')
+                    this.props.history.push('/admin/home')
                 })
                 break
             case 'reset':

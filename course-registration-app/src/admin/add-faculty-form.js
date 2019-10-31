@@ -79,27 +79,6 @@ class Profile extends React.Component {
                                     onChange={(event) => this.props.onChange(event)}
                                 />
                             </div>{" "}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    margin: "15px"
-                                }}
-                            >
-                                <label className={styles.fieldLabel} style={{ whiteSpace: "nowrap", marginRight: "40px" }}>
-                                    Confirm Password{" "}
-                                </label>{" "}
-                                <input
-                                    name="confirmPassword"
-                                    style={{ float: "right", width: "700px" }}
-                                    type="password"
-                                    placeholder=""
-                                    disabled={!this.props.value.inEditMode}
-                                    className={styles.profileInput}
-                                    value=''
-                                    onChange={(event) => this.props.onChange(event)}
-                                />
-                            </div>
                         </form>{" "}
                         <hr />
                         <div style={{ marginTop: '20px' }}>

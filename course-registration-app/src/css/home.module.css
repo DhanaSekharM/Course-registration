@@ -125,3 +125,7 @@ html, body { height: 100%; margin: 0px; padding: 0px; }
     font-size: 30px;
     font-weight: 600;
 }
+
+.logout:hover {
+    cursor: pointer;
+}

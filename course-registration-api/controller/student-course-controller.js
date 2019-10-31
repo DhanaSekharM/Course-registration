@@ -123,7 +123,7 @@ exports.viewApprovedCourses = (req, res) => {
 exports.viewTimeslots = (req, res) => {
     return sequelize.query(`SELECT * FROM registration INNER JOIN timeslot INNER JOIN course 
                             ON course.id = registration.courseId AND timeslot.courseId = registration.courseId 
-                            WHERE registration.studentId = '${req.user.user}'`, { type: sequelize.QueryTypes.SELECT })
+                            `, { type: sequelize.QueryTypes.SELECT })
                             .then((out) => {
                                 res.send(JSON.stringify(out))
                             })

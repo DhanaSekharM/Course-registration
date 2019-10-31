@@ -47,7 +47,7 @@ class StudentProfile extends React.Component {
                 phoneNumber: profile.phone,
                 department: profile.dept,
                 sex: profile.sex,
-                blob: profile.blob
+                blob: profile.image.data
             },
             requested: true,
         })

@@ -7,11 +7,16 @@ class Header extends React.Component {
         this.props.value.history.push('/faculty/home')
     }
 
+    handleLogoutClick() {
+        this.props.value.history.push('/login')
+    }
+
     render() {
         return (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div className={styles.header}>
-                    <h1 className={styles.box} onClick={() => this.handleLogoClick()}>OCR</h1>
+                    <h1 className={styles.box} style={{display: 'inline-block', float: 'left'}} onClick={() => this.handleLogoClick()}>OCR</h1>
+                    <h3 className={styles.logout} style={{float: 'right', display: 'inline-block', marginRight: '10px', color: 'white'}} onClick={() => this.handleLogoutClick()}>Logout</h3>
                 </div>
                 <div className={styles.pageTitle}>
                     <h1 >{this.props.title}</h1>
