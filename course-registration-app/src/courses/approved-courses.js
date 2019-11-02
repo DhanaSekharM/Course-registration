@@ -26,7 +26,7 @@ function threeCards(course1, course2, course3, clickHandler) {
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 50px' }}>
-                <CourseCard value={course2}
+                <CourseCard value={course3}
                     onApplyClick={() => clickHandler('delete', course3.id)} onViewClick={() => clickHandler('view', course3.id, course3)}
                     button1='Delete'
                     button2='View'

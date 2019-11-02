@@ -178,7 +178,8 @@ exports.editCourse = (req, res) => {
                                         credit= ${req.body.credit},
                                         lecture= ${req.body.lecture},
                                         tutorial= ${req.body.tutorial},
-                                        practical= ${req.body.practical}
+                                        practical= ${req.body.practical},
+                                        plan='${req.body.plan}'
                                         WHERE id='${req.body.id}'`)
         .then((out) => {
             res.send(out)

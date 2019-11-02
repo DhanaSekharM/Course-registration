@@ -13,6 +13,8 @@ function threeCards(course1, course2, course3, clickHandler) {
                     onApplyClick={() => clickHandler('edit', course1.id)} onViewClick={() => clickHandler('view')}
                     button1='Edit'
                     button2='View'
+                    button2disable={true}
+                    
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
@@ -20,6 +22,7 @@ function threeCards(course1, course2, course3, clickHandler) {
                     onApplyClick={() => clickHandler('edit', course2.id)} onViewClick={() => clickHandler('view')}
                     button1='Edit'
                     button2='View'
+                    button2disable={true}
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
@@ -27,6 +30,7 @@ function threeCards(course1, course2, course3, clickHandler) {
                     onApplyClick={() => clickHandler('edit', course3.id)} onViewClick={() => clickHandler('view')}
                     button1='Edit'
                     button2='View'
+                    button2disable={true}
                 />
             </div>
             
@@ -44,6 +48,7 @@ function twoCards(course1, course2, clickHandler) {
                     onViewClick={() => clickHandler('view')}
                     button1='Edit'
                     button2='View'
+                    button2disable={true}
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 100px' }}>
@@ -52,6 +57,7 @@ function twoCards(course1, course2, clickHandler) {
                     onApplyClick={() => clickHandler('edit', course2.id)} onViewClick={() => clickHandler('view')}
                     button1='Edit'
                     button2='View'
+                    button2disable={true}
                 />
             </div>
 
@@ -66,7 +72,9 @@ function oneCard(course, clickHandler) {
             value={course}
             onApplyClick={() => clickHandler('edit', course.id)} onViewClick={() => clickHandler('view')}
             button1='Edit'
-            button2='View'/>
+            button2='View'
+            button2disable={true}
+            />
         </div>
     )
 }

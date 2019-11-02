@@ -27,13 +27,13 @@ class Profile extends React.Component {
         let imgUrl = require('./../assets/profile-placeholder.jpeg')
 
 
-        if (this.props.value.imgUrl != null) {
-            imgUrl = this.props.value.imgUrl
-            create_blob(this.props.value.file, (blob) => {
-                console.log(blob)
-                this.props.onBlob(blob)
-            })           
-        }
+        // if (this.props.value.imgUrl != null) {
+        //     imgUrl = this.props.value.imgUrl
+        //     create_blob(this.props.value.file, (blob) => {
+        //         console.log(blob)
+        //         this.props.onBlob(blob)
+        //     })           
+        // }
 
 
         return (

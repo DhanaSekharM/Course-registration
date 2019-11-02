@@ -26,7 +26,7 @@ function threeCards(course1, course2, course3, clickHandler, timeslots) {
                 />
             </div>
             <div style={{ width: '400px', margin: '40px 40px 40px 40px' }}>
-                <CourseCard value={course2}
+                <CourseCard value={course3}
                     timeslots={timeslots}
                     onApplyClick={() => clickHandler('apply', course3.id)} onViewClick={() => clickHandler('view', course3.id, course3)}
                     button1='Apply'
@@ -158,7 +158,7 @@ class Get extends React.Component {
         }
         console.log(courses)
 
-        for (let i = this.state.availableCourses.length - 1; i >= 0; i = i - 2) {
+        for (let i = this.state.availableCourses.length - 1; i >= 0; i = i - 3) {
             if (i == 0) {
                 cards.push(oneCard(courses[i], this.clickHandler, this.state.timeslots))
                 // cards.push(threeCards(courses[i], courses[i], courses[i], this.clickHandler))

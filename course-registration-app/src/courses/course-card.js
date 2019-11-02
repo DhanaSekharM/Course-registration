@@ -59,6 +59,7 @@ class CourseCard extends React.Component {
                         className={styles.button}
                         style={{ marginLeft: '2px', backgroundColor: '#3f51b5' }}
                         onClick={this.props.onViewClick}
+                        hidden={this.props.button2disable}
                     >
                         {this.props.button2}
                     </button>

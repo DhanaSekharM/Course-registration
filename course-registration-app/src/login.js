@@ -56,6 +56,8 @@ class LoginPage extends React.Component {
     }
 
     render() {
+
+        // document.body.style.backgroundImage=`url('${/assets/book.jpg}')`
         return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline />

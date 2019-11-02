@@ -55,7 +55,7 @@ class Navigator extends React.Component {
                     <li className={styles.menuLi} onClick={() => this.handleNavClick('available')}>Menu</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('add')}>Add Courses</li>
                     <li className={styles.li} onClick={() => this.handleNavClick('offered')}>Offered Courses</li>
-                    <li className={styles.li} onClick={() => this.handleNavClick('pending')}>Pending Courses</li>
+                    <li className={styles.li} onClick={() => this.handleNavClick('pending')}>Pending Requests</li>
                     {/* <li className={styles.li} onClick={() => this.handleNavClick('graded')}>Graded Courses</li> */}
                     <li className={styles.li} onClick={() => this.handleNavClick('profile')}>Profile</li>
                 </ul>

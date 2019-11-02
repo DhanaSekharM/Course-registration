@@ -87,7 +87,7 @@ class Profile extends React.Component {
                                     name="password"
                                     style={{ float: "right", width: "700px" }}
                                     type="password"
-                                    placeholder="fname@email.com"
+                                    placeholder="******"
                                     disabled={!this.props.value.inEditMode}
                                     className={styles.profileInput}
                                     value=''

@@ -293,7 +293,7 @@ class CreateCourseFrom extends React.Component {
                             <label className={styles.fieldLabel} style={{ whiteSpace: "nowrap", marginRight: "40px" }}>
                                 Timeslots{" "}
                             </label>{" "}
-                            <button onClick={(event) => this.props.onClick(event, 'time')}>Add timeslot</button>
+                            <button className={styles.button2} onClick={(event) => this.props.onClick(event, 'time')}>Add timeslot</button>
                             <div style={{display: 'flex', flexDirection: 'column'}}>
                                 {indexes.map((i) => this.timeslot(i))}
                             </div>
